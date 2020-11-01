@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="3dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_item_grid_developer"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="4dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/circleImage"
+        tools:src="@color/colorAccent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/developer_detail_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/shape_img_developer_detail_gradient"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_grid_developer"
+        app:layout_constraintEnd_toEndOf="@+id/img_item_grid_developer"
+        app:layout_constraintStart_toStartOf="@+id/img_item_grid_developer"
+        app:layout_constraintTop_toTopOf="@+id/img_item_grid_developer"
+        app:shapeAppearance="@style/circleImage" />
+
+    <TextView
+        android:id="@+id/tv_name_developer_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/name_mostpopular"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_username_developer_grid"
+        app:layout_constraintStart_toStartOf="@+id/img_item_grid_developer" />
+
+    <TextView
+        android:id="@+id/tv_username_developer_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/lato_reguler"
+        android:maxLines="2"
+        android:text="@string/name_mostpopular"
+        android:textColor="#ececec"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_grid_developer"
+        app:layout_constraintEnd_toEndOf="@+id/img_item_grid_developer"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/img_item_grid_developer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
