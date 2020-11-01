@@ -17,7 +17,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".features.SplashScreen"
+            android:name=".features.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
