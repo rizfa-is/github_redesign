@@ -34,20 +34,18 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
     ): View? {
         actionBar.menu.findItem(R.id.act_listOption).isVisible = true
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
+        actionBar.title = "Developer"
+
         // Inflate the layout for this fragment
         return inflater.inflate(layout.fragment_developer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val getActivity = activity as AppCompatActivity
-        getActivity.supportActionBar?.title = "Developer"
-
         navigationView.setCheckedItem(R.id.developer_nav_drawer)
 
         listDeveloper.addAll(MainData.listDataDeveloper)
         showRecyclerList()
-
 
         actionBar.setOnMenuItemClickListener {
             when (it.itemId) {

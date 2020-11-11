@@ -29,7 +29,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/constraintLayout_developer_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -85,34 +85,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="280dp"
+                android:drawablePadding="7dp"
                 android:letterSpacing="0.05"
                 android:text="@string/pittsburgh_pa_usa"
                 android:textColor="#95ececec"
-                android:drawablePadding="7dp"
                 app:drawableStartCompat="@drawable/ic_location"
                 app:drawableTint="#95ececec"
-                app:layout_constraintBottom_toBottomOf="@+id/img_developer_detail"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="@id/background_developer"
                 app:layout_constraintStart_toStartOf="@+id/img_developer_detail" />
-
-            <TextView
-                android:id="@+id/tv_username_developer_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:elevation="2dp"
-                android:fontFamily="@font/roboto_condensed_bold"
-                android:letterSpacing="0.05"
-                android:text="@string/jake_wharton"
-                android:textColor="#ececec"
-                android:drawablePadding="7dp"
-                app:drawableStartCompat="@drawable/ic_username"
-                app:drawableTint="@color/colorFavorite1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/background_developer" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/developer_detail_circleImageView"
@@ -140,7 +121,7 @@
                 android:id="@+id/background_developer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="24dp"
                 android:src="@drawable/shape_developer_info"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +129,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_location_developer_detail" />
 
             <TextView
+                android:id="@+id/tv_username_developer_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:elevation="2dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:letterSpacing="0.05"
+                android:text="@string/jake_wharton"
+                android:textColor="#ececec"
+                android:drawablePadding="7dp"
+                app:drawableStartCompat="@drawable/ic_username"
+                app:drawableTint="@color/colorFavorite1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/background_developer" />
+
+            <Button
                 android:id="@+id/tv_repository_number"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/crimson_text_bold"
@@ -156,6 +155,7 @@
                 android:textColor="@color/colorFavorite1"
                 android:textSize="35sp"
                 android:textStyle="bold"
+                android:background="@drawable/state_content_background"
                 app:layout_constraintEnd_toEndOf="@+id/tv_repository"
                 app:layout_constraintStart_toStartOf="@+id/tv_repository"
                 app:layout_constraintTop_toTopOf="@+id/tv_follower_number" />
@@ -172,15 +172,17 @@
                 app:layout_constraintEnd_toStartOf="@+id/tv_follower"
                 app:layout_constraintTop_toBottomOf="@+id/tv_repository_number" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_follower_number"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/state_content_background"
                 android:fontFamily="@font/crimson_text_bold"
                 android:text="@string/_73400"
                 android:textColor="@color/colorFavorite1"
-                android:textSize="36sp"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tv_follower"
                 app:layout_constraintStart_toStartOf="@+id/tv_follower"
@@ -202,8 +204,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_follower_number"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_following_number"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/crimson_text_bold"
@@ -211,6 +214,7 @@
                 android:textColor="@color/colorFavorite1"
                 android:textSize="35sp"
                 android:textStyle="bold"
+                android:background="@drawable/state_content_background"
                 app:layout_constraintEnd_toEndOf="@+id/tv_following"
                 app:layout_constraintStart_toStartOf="@+id/tv_following"
                 app:layout_constraintTop_toTopOf="@+id/tv_follower_number" />

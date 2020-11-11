@@ -17,14 +17,14 @@ class StudyRoomFragment(private val navigationView : NavigationView, private val
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
+        actionBar.title = "Study Room"
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_study_room, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activityNew = activity as AppCompatActivity
-        activityNew.supportActionBar?.title = "Study Room"
         navigationView.setCheckedItem(R.id.studyRoom_nav_drawer)
 
         actionBar.setOnMenuItemClickListener {

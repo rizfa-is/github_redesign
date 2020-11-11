@@ -17,14 +17,14 @@ class ChallengesFragment(private val navigationView : NavigationView, private va
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
+        actionBar.title = "Challenges"
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_challenges, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activityNew = activity as AppCompatActivity
-        activityNew.supportActionBar?.title = "Challenges"
         navigationView.setCheckedItem(R.id.challenges_nav_drawer)
 
         actionBar.setOnMenuItemClickListener {

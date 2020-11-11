@@ -17,14 +17,14 @@ class AboutUsFragment(private val navigationView : NavigationView, private val a
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = false
+        actionBar.title = "About Us"
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about_us, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val getActivity = activity as AppCompatActivity
-        getActivity.supportActionBar?.title = "About Us"
         navigationView.setCheckedItem(R.id.aboutUs_nav_drawer2)
     }
 }

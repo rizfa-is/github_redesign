@@ -17,14 +17,14 @@ class ProfilFragment(private val navigationView : NavigationView, private val ac
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = false
+        actionBar.title = "Profil"
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profil, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activityNew = activity as AppCompatActivity
-        activityNew.supportActionBar?.title = "Profil"
         navigationView.setCheckedItem(R.id.profil_nav_drawer2)
     }
 }

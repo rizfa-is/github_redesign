@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -29,15 +28,13 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
+        actionBar.title = "Home"
 
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activityNew = activity as AppCompatActivity
-        activityNew.supportActionBar?.title = "Home"
-
         navigationView.setCheckedItem(R.id.home_nav_drawer)
 
         listMostPopular.addAll(MainData.listDataMostPopular)
