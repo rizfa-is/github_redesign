@@ -31,7 +31,7 @@ class CardViewDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, 
                 .apply(RequestOptions().override(300, 450))
                 .into(itemView.img_item_card_developer)
 
-            this.devName.text = developer.name
+            this.devName.text = developer.username
             this.devLocation.text = developer.location
 
             this.btnShare.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition], this.btnShare) }

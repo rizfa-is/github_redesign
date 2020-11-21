@@ -23,8 +23,7 @@ class GridDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, priv
                 .apply(RequestOptions().override(250, 250))
                 .into(itemView.img_item_grid_developer)
 
-            this.itemView.tv_name_developer_grid.text = developer.name
-            this.itemView.tv_username_developer_grid.text = developer.username
+            this.itemView.tv_name_developer_grid.text = developer.username
 
             this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition]) }
         }

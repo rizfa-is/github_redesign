@@ -29,7 +29,7 @@ class ListDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, priv
                 .apply(RequestOptions().override(55, 55))
                 .into(itemView.img_item_row_developer)
 
-            this.devName.text = developer.name
+            this.devName.text = developer.username
             this.devLocation.text = developer.location
 
             this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + developer.name, Toast.LENGTH_SHORT).show() }

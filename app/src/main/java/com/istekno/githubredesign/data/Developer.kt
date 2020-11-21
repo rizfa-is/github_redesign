@@ -5,19 +5,19 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Developer (
-    val name : String? = null,
-    val username : String? = null,
-    val location : String? = null,
-    val company : String? = null,
-    val avatar : String? = null,
-    val repository : Int? = null,
-    val follower : Int? = null,
-    val following : Int? = null
+    var name : String? = null,
+    var username : String? = null,
+    var location : String? = null,
+    var company : String? = null,
+    var avatar : String? = null,
+    var repository : Int? = null,
+    var follower : Int? = null,
+    var following : Int? = null
 ) : Parcelable
 
 @Parcelize
 data class Content (
-    val name : String? = null,
-    val photo : String? = null
+    var name : String? = null,
+    var photo : String? = null
 ) : Parcelable
 
