@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/fab_list"
-        android:title="List"
+        android:title="@string/list"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/fab_grid"
-        android:title="Grid"
+        android:title="@string/grid"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/fab_cardView"
-        android:title="CardView"
+        android:title="@string/cardview"
         app:showAsAction="never"/>
 
 </menu>

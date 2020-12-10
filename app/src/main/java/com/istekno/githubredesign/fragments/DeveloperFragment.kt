@@ -1,15 +1,15 @@
 package com.istekno.githubredesign.fragments
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
-import android.nfc.Tag
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,22 +21,19 @@ import com.istekno.githubredesign.adapter.developerfragment.CardViewDeveloperAda
 import com.istekno.githubredesign.adapter.developerfragment.GridDeveloperAdapter
 import com.istekno.githubredesign.adapter.developerfragment.ListDeveloperAdapter
 import com.istekno.githubredesign.data.Developer
-import com.istekno.githubredesign.data.MainData
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_developer.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.Exception
 
-class DeveloperFragment(private val navigationView: NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
+open class DeveloperFragment(private val navigationView: NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
 
     private var listDeveloper = ArrayList<Developer>()
 
     companion object {
         const val INTENT_PARCELABLE = "OBJECT_INTENT"
-        val TAG = DeveloperFragment::class.java.simpleName
     }
 
     override fun onCreateView(
@@ -44,8 +41,9 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
         savedInstanceState: Bundle?
     ): View? {
         actionBar.menu.findItem(R.id.act_listOption).isVisible = true
-        actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
-        actionBar.title = "Developer"
+        actionBar.menu.findItem(R.id.act_favorite).isVisible = true
+        actionBar.menu.findItem(R.id.act_search).isVisible = true
+        actionBar.title = resources.getString(R.string.developer)
 
         // Inflate the layout for this fragment
         return inflater.inflate(layout.fragment_developer, container, false)
@@ -55,19 +53,18 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
         super.onViewCreated(view, savedInstanceState)
         navigationView.setCheckedItem(R.id.developer_nav_drawer)
 
-        getDeveloperListData(0)
-//        showRecyclerList()
+        searchByUsername(0)
 
         actionBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.fab_list -> {
-                    getDeveloperListData(0)
+                    searchByUsername(0)
                 }
                 R.id.fab_grid -> {
-                    getDeveloperListData(1)
+                    searchByUsername(1)
                 }
                 R.id.fab_cardView -> {
-                    getDeveloperListData(2)
+                    searchByUsername(2)
                 }
                 R.id.act_favorite -> {
                     val mFragmentManager = fragmentManager
@@ -81,26 +78,77 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
         }
     }
 
-    private fun getDeveloperListData(switchNumber: Int) {
-        progressBar_developer_list.visibility = View.VISIBLE
-        var loginId = ""
+    private fun searchByUsername(position: Int) {
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = actionBar.menu.findItem(R.id.act_search).actionView as SearchView
+        var url = "https://api.github.com/users"
+        var empty = true
+
+        getDeveloperListData(0, true, url, empty)
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.queryHint = "Input username"
+        searchView.setBackgroundColor(Color.WHITE)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query?.isEmpty() == false) {
+                    url ="https://api.github.com/search/users?q=\"$query\""
+                    empty = false
+                } else {
+                    url ="https://api.github.com/users"
+                    empty = true
+                }
+
+                listDeveloper.clear()
+                getDeveloperListData(position, false, url, empty)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.isEmpty() == false) {
+                    url ="https://api.github.com/search/users?q=\"$newText\""
+                    empty = false
+                } else {
+                    url ="https://api.github.com/users"
+                    empty = true
+                }
+
+                listDeveloper.clear()
+                getDeveloperListData(position, false, url, empty)
+                return false
+            }
+        })
+    }
+
+    fun getDeveloperListData( switchNumber: Int, progressBar: Boolean, url: String, empty: Boolean) {
+
+        if (progressBar == true) {
+            progressBar_developer_list.visibility = View.VISIBLE
+        }
+
+        var loginId: String
         val client = AsyncHttpClient()
-        val url = "https://api.github.com/users"
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
-                responseBody: ByteArray
+                responseBody: ByteArray?
             ) {
                 progressBar_developer_list.visibility = View.INVISIBLE
 
-                val result = String(responseBody)
+                val res = responseBody?.let { String(it) }
+                val result : JSONArray
+                if (empty == true) {
+                    result = JSONArray(res)
+                } else {
+                    result = JSONObject(res).getJSONArray("items")
+                }
+
                 try {
-                    val jsonArray = JSONArray(result)
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
+                    for (i in 0 until result.length()) {
+                        val jsonObject = result.getJSONObject(i)
                         loginId = jsonObject.getString("login")
                         getDeveloperDetailData(loginId, switchNumber)
                     }
@@ -112,7 +160,7 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
             override fun onFailure(
                 statusCode: Int,
                 headers: Array<out Header>?,
-                responseBody: ByteArray,
+                responseBody: ByteArray?,
                 error: Throwable?
             ) {
                 progressBar_developer_list.visibility = View.INVISIBLE
@@ -129,32 +177,41 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
         })
     }
 
-    private fun getDeveloperDetailData(loginId: String, switchNumber: Int) {
-        progressBar_developer_list.visibility = View.VISIBLE
+    fun getDeveloperDetailData(loginId: String, switchNumber: Int) {
         val client = AsyncHttpClient()
-        val url = "https://api.github.com/users/${loginId}"
+        val url = "https://api.github.com//users/$loginId"
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Array<out Header>?,
-                responseBody: ByteArray
+                responseBody: ByteArray?
             ) {
-                progressBar_developer_list.visibility = View.INVISIBLE
-
-                val result = String(responseBody)
+                val result = responseBody?.let { String(it) }
                 try {
                     val responsObject = JSONObject(result)
-                    val name = responsObject.getString("login")
-                    val location = responsObject.getString("location")
-                    val avatar = responsObject.getString("avatar_url")
 
+
+                    val avatar = responsObject.getString("avatar_url")
+                    val name = responsObject.getString("name")
+                    val company = responsObject.getString("company")
+                    val location = responsObject.getString("location")
+                    val username = responsObject.getString("login")
+                    val repository = responsObject.getString("public_repos")
+                    val follower = responsObject.getString("followers")
+                    val following = responsObject.getString("following")
 
                     val developer = Developer()
-                    developer.username = name
-                    developer.location = location
                     developer.avatar = avatar
+                    developer.name = name
+                    developer.company = company
+                    developer.location = location
+                    developer.username = username
+                    developer.repository = repository.toInt()
+                    developer.follower = follower.toInt()
+                    developer.following = following.toInt()
+
                     listDeveloper.add(developer)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -169,11 +226,9 @@ class DeveloperFragment(private val navigationView: NavigationView, private val 
             override fun onFailure(
                 statusCode: Int,
                 headers: Array<out Header>?,
-                responseBody: ByteArray,
+                responseBody: ByteArray?,
                 error: Throwable?
             ) {
-                progressBar_developer_list.visibility = View.INVISIBLE
-
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"

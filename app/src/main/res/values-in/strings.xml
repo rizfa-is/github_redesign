@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Github Redesign</string>
+    <string name="slogan">"Store Code Share Code"</string>
+    <string name="title">Github</string>
+    <string name="open">Buka</string>
+    <string name="close">Tutup</string>
+    <string name="my_profil_desc">\t\t\tHi, saya Rosyid Rosadi seorang Freelancer sejak 2017. Pertama kali kenal dunia programming pada akhir 2018, ketika mengerjakan projek tools untuk Trading Forex berbasis Machine Learning sederhana menggunakan C++. Mengikuti 1 bootcamp Fullstack Web Node.Js dan sekali ikut pelatihan online Fullstack Mobile Development menggunakan framework Flutter.</string>
+    <!-- Other string resources-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="coming_soon">Segera Hadir</string>
+    <string name="most_popular">Paling Populer</string>
+    <string name="explore_content">Jelajahi Konten</string>
+    <string name="name_mostpopular">Nama</string>
+    <string name="check_more">Cek lainnya</string>
+    <string name="share">Bagikan</string>
+    <string name="detail">Detail</string>
+    <string name="jake_wharton">Jake Wharton</string>
+    <string name="google_inc">Google, Inc.</string>
+    <string name="pittsburgh_pa_usa">Pittsburgh, PA, USA</string>
+    <string name="_73400">73400</string>
+    <string name="repository">Repository</string>
+    <string name="follower">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="search">Cari</string>
+    <string name="options">Pilihan</string>
+    <string name="list">Daftar</string>
+    <string name="grid">Kotak</string>
+    <string name="cardview">Kartu</string>
+    <string name="favorites">Favorit</string>
+    <string name="home">Depan</string>
+    <string name="developer">Pengembang</string>
+    <string name="challenges">Tantangan</string>
+    <string name="study_room">Ruang Belajar</string>
+    <string name="profile">Profil</string>
+    <string name="about_us">Tentang Kami</string>
+    <string name="language">Bahasa</string>
+</resources>

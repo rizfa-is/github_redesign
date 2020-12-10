@@ -2,9 +2,11 @@ package com.istekno.githubredesign.activity
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -74,6 +76,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.profil_nav_drawer2 -> {
                 fragmentProperties(ProfilFragment(nav_view, topAppBar), ProfilFragment::class.java.simpleName)
+            }
+
+            R.id.change_language_nav_drawer2 -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
             }
 
             R.id.aboutUs_nav_drawer2 -> {

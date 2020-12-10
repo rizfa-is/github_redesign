@@ -5,19 +5,32 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Developer (
-    var name : String? = null,
-    var username : String? = null,
-    var location : String? = null,
-    var company : String? = null,
-    var avatar : String? = null,
-    var repository : Int? = null,
-    var follower : Int? = null,
-    var following : Int? = null
+    var name : String = "",
+    var username : String = "",
+    var location : String = "",
+    var company : String = "",
+    var avatar : String = "",
+    var repository : Int = 0,
+    var follower : Int = 0,
+    var following : Int = 0
 ) : Parcelable
 
 @Parcelize
 data class Content (
-    var name : String? = null,
-    var photo : String? = null
+    var name : String = "",
+    var photo : String = ""
 ) : Parcelable
 
+@Parcelize
+data class Repository (
+    var name : String = "",
+    var username: String = "",
+    var avatar : String = ""
+) : Parcelable
+
+@Parcelize
+data class Follows (
+    var name : String = "",
+    var location : String = "",
+    var avatar : String = ""
+) : Parcelable

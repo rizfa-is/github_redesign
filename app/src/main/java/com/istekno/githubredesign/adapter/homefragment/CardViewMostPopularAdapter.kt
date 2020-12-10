@@ -23,7 +23,7 @@ class CardViewMostPopularAdapter(private val listMostPopularDeveloper: ArrayList
                 .apply(RequestOptions().override(140, 140))
                 .into(itemView.img_cardView_photo)
 
-            this.itemView.name_most_popular.text = developer.name
+            this.itemView.name_most_popular.text = developer.username
 
             val mpUp = this.itemView.mp_background_up
             val medal = this.itemView.medal_most_popular

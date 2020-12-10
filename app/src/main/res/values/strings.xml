@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Github Redesign</string>
     <string name="slogan">"Store Code Share Code"</string>
     <string name="title">Github</string>
@@ -21,4 +21,17 @@
     <string name="repository">Repository</string>
     <string name="follower">Follower</string>
     <string name="following">Following</string>
+    <string name="search">Search</string>
+    <string name="options">Options</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+    <string name="cardview">CardView</string>
+    <string name="favorites">Favorites</string>
+    <string name="home">Home</string>
+    <string name="developer">Developer</string>
+    <string name="challenges">Challenges</string>
+    <string name="study_room">Study Room</string>
+    <string name="profile">Profile</string>
+    <string name="about_us">About Us</string>
+    <string name="language">Language</string>
 </resources>

@@ -1,42 +1,44 @@
 package com.istekno.githubredesign.fragments.detailuser
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.adapter.developerdetail.ListRepositoryAdapter
-import com.istekno.githubredesign.data.Repository
+import com.istekno.githubredesign.adapter.developerdetail.ListFollowingAdapter
+import com.istekno.githubredesign.data.Follows
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.fragment_following.*
 import kotlinx.android.synthetic.main.fragment_repository.*
 import org.json.JSONArray
+import java.lang.Exception
 
-class RepositoryFragment(private val username: String, private val avatar: String) : Fragment() {
-
-    private val listRepository = ArrayList<Repository>()
+class FollowingFragment(private val username: String?) : Fragment() {
+    
+    private val listFollowing = ArrayList<Follows>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_repository, container, false)
+        return inflater.inflate(R.layout.fragment_following, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val URL = "https://api.github.com/users/$username/repos"
+        val URL = "https://api.github.com/users/$username/following"
 
-        getRepositoryDetailData(URL) { showRecycleList(listRepository) }
+        getFollowersDetailData(URL) { showRecycleList(listFollowing) }
     }
 
-    private fun getRepositoryDetailData(urlMain: String, listRepo: () -> Unit) {
-        progressBar_repo_list.visibility = View.VISIBLE
+    private fun getFollowersDetailData(urlMain: String, listRepo: () -> Unit) {
+        progressBar_following_list.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
@@ -46,7 +48,7 @@ class RepositoryFragment(private val username: String, private val avatar: Strin
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-                progressBar_repo_list.visibility = View.INVISIBLE
+                progressBar_following_list.visibility = View.INVISIBLE
 
                 val result = responseBody?.let { String(it) }
                 try {
@@ -68,7 +70,7 @@ class RepositoryFragment(private val username: String, private val avatar: Strin
                 responseBody: ByteArray,
                 error: Throwable?
             ) {
-                progressBar_repo_list.visibility = View.INVISIBLE
+                progressBar_following_list.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
@@ -83,21 +85,20 @@ class RepositoryFragment(private val username: String, private val avatar: Strin
     }
 
     private fun bindingData(responsArray: JSONArray, position: Int) {
-        val name = responsArray.getJSONObject(position).getString("name")
+        val name = responsArray.getJSONObject(position).getString("login")
+        val avatar = responsArray.getJSONObject(position).getString("avatar_url")
 
-        val repo = Repository()
+        val repo = Follows()
         repo.name = name
-        repo.username = username
         repo.avatar = avatar
 
-        listRepository.add(repo)
+        listFollowing.add(repo)
     }
 
-    private fun showRecycleList(listRepo: ArrayList<Repository>) {
-        rv_repository.apply {
+    private fun showRecycleList(listFollower: ArrayList<Follows>) {
+        rv_following.apply {
             layoutManager = LinearLayoutManager(view?.context)
-            adapter = ListRepositoryAdapter(listRepo)
+            adapter = ListFollowingAdapter(listFollower)
         }
     }
-
 }

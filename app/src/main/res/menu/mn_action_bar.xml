@@ -4,14 +4,15 @@
 
     <item
         android:id="@+id/act_search"
-        android:title="Search"
         android:icon="@drawable/ic_search"
+        android:title="@string/search"
         android:visible="false"
-        app:showAsAction="ifRoom"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|always" />
 
     <item
         android:id="@+id/act_listOption"
-        android:title="Option"
+        android:title="@string/options"
         android:icon="@drawable/ic_list_option"
         android:visible="true"
         app:showAsAction="ifRoom">
@@ -20,17 +21,17 @@
 
             <item
                 android:id="@+id/fab_list"
-                android:title="List"
+                android:title="@string/list"
                 app:showAsAction="never"/>
 
             <item
                 android:id="@+id/fab_grid"
-                android:title="Grid"
+                android:title="@string/grid"
                 app:showAsAction="never"/>
 
             <item
                 android:id="@+id/fab_cardView"
-                android:title="CardView"
+                android:title="@string/cardview"
                 app:showAsAction="never"/>
 
         </menu>
@@ -39,7 +40,7 @@
 
     <item
         android:id="@+id/act_favorite"
-        android:title="Favorite"
+        android:title="@string/favorites"
         android:icon="@drawable/ic_favorite"
         android:visible="true"
         app:showAsAction="ifRoom"/>

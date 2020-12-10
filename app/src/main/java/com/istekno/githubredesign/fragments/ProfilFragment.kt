@@ -1,11 +1,10 @@
 package com.istekno.githubredesign.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.istekno.githubredesign.R
 
@@ -17,7 +16,8 @@ class ProfilFragment(private val navigationView : NavigationView, private val ac
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = false
-        actionBar.title = "Profil"
+        actionBar.menu?.findItem(R.id.act_search)?.isVisible = false
+        actionBar.title = resources.getString(R.string.profile)
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profil, container, false)
