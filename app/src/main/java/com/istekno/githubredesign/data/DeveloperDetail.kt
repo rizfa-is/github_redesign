@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Developer (
+data class DeveloperDetail (
     var name : String = "",
     var username : String = "",
     var location : String = "",
@@ -13,6 +13,12 @@ data class Developer (
     var repository : Int = 0,
     var follower : Int = 0,
     var following : Int = 0
+) : Parcelable
+
+@Parcelize
+data class DeveloperList (
+    var username : String = "",
+    var avatar : String = ""
 ) : Parcelable
 
 @Parcelize

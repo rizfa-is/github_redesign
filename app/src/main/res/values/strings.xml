@@ -34,4 +34,6 @@
     <string name="profile">Profile</string>
     <string name="about_us">About Us</string>
     <string name="language">Language</string>
+    <string name="list_developer">List Developer</string>
+    <string name="temp">-</string>
 </resources>

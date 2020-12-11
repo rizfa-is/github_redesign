@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Developer
+import com.istekno.githubredesign.data.DeveloperList
 import kotlinx.android.synthetic.main.item_card_home_most_popular.view.*
 
-class CardViewMostPopularAdapter(private val listMostPopularDeveloper: ArrayList<Developer>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewMostPopularAdapter.CardViewHolder>() {
+class CardViewMostPopularAdapter(private val listMostPopularDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewMostPopularAdapter.CardViewHolder>() {
 
     interface OnItemClickCallback {
-        fun onItemClicked(developer: Developer)
+        fun onItemClicked(developerList: DeveloperList)
     }
 
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(developer: Developer) {
+        fun bind(DeveloperList: DeveloperList) {
             Glide.with(itemView.context)
-                .load(developer.avatar)
+                .load(DeveloperList.avatar)
                 .apply(RequestOptions().override(140, 140))
                 .into(itemView.img_cardView_photo)
 
-            this.itemView.name_most_popular.text = developer.username
+            this.itemView.name_most_popular.text = DeveloperList.username
 
             val mpUp = this.itemView.mp_background_up
             val medal = this.itemView.medal_most_popular
@@ -44,7 +44,7 @@ class CardViewMostPopularAdapter(private val listMostPopularDeveloper: ArrayList
                 }
             }
 
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listMostPopularDeveloper[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listMostPopularDeveloperList[this.adapterPosition]) }
         }
     }
 
@@ -54,8 +54,8 @@ class CardViewMostPopularAdapter(private val listMostPopularDeveloper: ArrayList
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(listMostPopularDeveloper[position])
+        holder.bind(listMostPopularDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listMostPopularDeveloper.size
+    override fun getItemCount(): Int = listMostPopularDeveloperList.size
 }

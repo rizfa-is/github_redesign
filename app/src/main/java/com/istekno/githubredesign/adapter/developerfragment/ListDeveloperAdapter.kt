@@ -9,31 +9,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Developer
+import com.istekno.githubredesign.data.DeveloperList
 import kotlinx.android.synthetic.main.item_row_developer.view.*
 
-class ListDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<ListDeveloperAdapter.ListViewHolder>() {
+class ListDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<ListDeveloperAdapter.ListViewHolder>() {
 
     interface OnItemClickCallback {
-        fun onItemClicked(developer: Developer)
+        fun onItemClicked(developerList: DeveloperList)
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val devName : TextView = itemView.findViewById(R.id.tv_item_row_developer_name)
-        private val devLocation : TextView = itemView.findViewById(R.id.tv_item_row_developer_location)
 
-        fun bind(developer: Developer) {
+        fun bind(DeveloperList: DeveloperList) {
             Glide.with(itemView.context)
-                .load(developer.avatar)
+                .load(DeveloperList.avatar)
                 .apply(RequestOptions().override(55, 55))
                 .into(itemView.img_item_row_developer)
 
-            this.devName.text = developer.username
-            this.devLocation.text = developer.location
+            this.devName.text = DeveloperList.username
 
-            this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + developer.name, Toast.LENGTH_SHORT).show() }
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition]) }
+            this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + DeveloperList.username, Toast.LENGTH_SHORT).show() }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition]) }
         }
     }
 
@@ -43,8 +41,8 @@ class ListDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, priv
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listDeveloper[position])
+        holder.bind(listDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloper.size
+    override fun getItemCount(): Int = listDeveloperList.size
 }

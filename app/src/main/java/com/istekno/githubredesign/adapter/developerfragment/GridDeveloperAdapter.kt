@@ -7,25 +7,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Developer
+import com.istekno.githubredesign.data.DeveloperList
 import kotlinx.android.synthetic.main.item_grid_developer.view.*
 
-class GridDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<GridDeveloperAdapter.GridViewHolder>() {
+class GridDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<GridDeveloperAdapter.GridViewHolder>() {
 
     interface OnItemClickCallback {
-        fun onItemClicked(developer: Developer)
+        fun onItemClicked(developerList: DeveloperList)
     }
 
     inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(developer: Developer) {
+        fun bind(DeveloperList: DeveloperList) {
             Glide.with(itemView.context)
-                .load(developer.avatar)
+                .load(DeveloperList.avatar)
                 .apply(RequestOptions().override(250, 250))
                 .into(itemView.img_item_grid_developer)
 
-            this.itemView.tv_name_developer_grid.text = developer.username
+            this.itemView.tv_name_developer_grid.text = DeveloperList.username
 
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition]) }
         }
     }
 
@@ -35,8 +35,8 @@ class GridDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, priv
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        holder.bind(listDeveloper[position])
+        holder.bind(listDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloper.size
+    override fun getItemCount(): Int = listDeveloperList.size
 }

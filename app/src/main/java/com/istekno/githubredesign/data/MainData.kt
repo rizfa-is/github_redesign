@@ -118,11 +118,11 @@ object MainData {
     )
 
 
-    val listDataDeveloper : ArrayList<Developer>
+    val listDataDeveloperDetail : ArrayList<DeveloperDetail>
         get() {
-            val listData = arrayListOf<Developer>()
+            val listData = arrayListOf<DeveloperDetail>()
             for (position in developerName.indices) {
-                val developer = Developer(
+                val developer = DeveloperDetail(
                     developerName[position],
                     developerUsername[position],
                     developerLocation[position],
@@ -138,11 +138,11 @@ object MainData {
         }
 
     val takeData = developerFollowers.take(5)
-    val listDataMostPopular : ArrayList<Developer>
+    val listDataMostPopular : ArrayList<DeveloperDetail>
         get() {
-            val listDataDeveloper = arrayListOf<Developer>()
+            val listDataDeveloper = arrayListOf<DeveloperDetail>()
             for (position in takeData.indices) {
-                val developer = Developer(
+                val developer = DeveloperDetail(
                     developerName[position],
                     developerUsername[position],
                     developerLocation[position],

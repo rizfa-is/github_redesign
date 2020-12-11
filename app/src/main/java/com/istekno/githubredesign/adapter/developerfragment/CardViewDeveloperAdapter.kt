@@ -9,33 +9,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Developer
+import com.istekno.githubredesign.data.DeveloperList
 import kotlinx.android.synthetic.main.item_card_developer.view.*
 
-class CardViewDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewDeveloperAdapter.CardViewViewHolder>() {
+class CardViewDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewDeveloperAdapter.CardViewViewHolder>() {
 
     interface OnItemClickCallback {
-        fun onItemClicked(developer: Developer, itemView: View)
+        fun onItemClicked(developerList: DeveloperList, itemView: View)
     }
 
     inner class CardViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val devName : TextView = itemView.findViewById(R.id.tv_item_card_developer_name)
-        private val devLocation : TextView = itemView.findViewById(R.id.tv_item_card_developer_location)
         private val btnShare : Button = itemView.findViewById(R.id.item_card_developer_btn_set_share)
         private val btnDetail : Button = itemView.findViewById(R.id.item_card_developer_btn_set_detail)
 
-        fun bind(developer: Developer) {
+        fun bind(DeveloperList: DeveloperList) {
             Glide.with(itemView.context)
-                .load(developer.avatar)
+                .load(DeveloperList.avatar)
                 .apply(RequestOptions().override(300, 450))
                 .into(itemView.img_item_card_developer)
 
-            this.devName.text = developer.username
-            this.devLocation.text = developer.location
+            this.devName.text = DeveloperList.username
 
-            this.btnShare.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition], this.btnShare) }
-            this.btnDetail.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloper[this.adapterPosition], this.btnDetail) }
+            this.btnShare.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition], this.btnShare) }
+            this.btnDetail.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition], this.btnDetail) }
         }
     }
 
@@ -45,8 +43,8 @@ class CardViewDeveloperAdapter(private val listDeveloper: ArrayList<Developer>, 
     }
 
     override fun onBindViewHolder(holder: CardViewViewHolder, position: Int) {
-        holder.bind(listDeveloper[position])
+        holder.bind(listDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloper.size
+    override fun getItemCount(): Int = listDeveloperList.size
 }
