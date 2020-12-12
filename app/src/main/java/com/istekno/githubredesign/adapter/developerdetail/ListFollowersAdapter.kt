@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Follows
+import com.istekno.githubredesign.model.Follows
 import kotlinx.android.synthetic.main.item_row_developer.view.*
 
 class ListFollowersAdapter(private val listFollowers: ArrayList<Follows>) : RecyclerView.Adapter<ListFollowersAdapter.ListViewHolder>() {

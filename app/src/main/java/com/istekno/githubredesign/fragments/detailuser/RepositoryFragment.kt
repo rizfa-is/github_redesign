@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapter.developerdetail.ListRepositoryAdapter
-import com.istekno.githubredesign.api.API
-import com.istekno.githubredesign.data.Repository
+import com.istekno.githubredesign.db.BaseAPI
+import com.istekno.githubredesign.model.Repository
 import kotlinx.android.synthetic.main.fragment_repository.*
 
 class RepositoryFragment(private val username: String, private val avatar: String) : Fragment() {
 
     private val listRepository = ArrayList<Repository>()
-    private val getAPI = API()
+    private val getAPI = BaseAPI()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

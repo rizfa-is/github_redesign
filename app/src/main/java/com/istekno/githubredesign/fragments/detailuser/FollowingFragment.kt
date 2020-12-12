@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapter.developerdetail.ListFollowingAdapter
-import com.istekno.githubredesign.api.API
-import com.istekno.githubredesign.data.Follows
+import com.istekno.githubredesign.db.BaseAPI
+import com.istekno.githubredesign.model.Follows
 import kotlinx.android.synthetic.main.fragment_following.*
 
 class FollowingFragment(private val username: String) : Fragment() {
     
     private val listFollowing = ArrayList<Follows>()
-    private var getAPI = API()
+    private var getAPI = BaseAPI()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

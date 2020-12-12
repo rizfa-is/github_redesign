@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.DeveloperList
+import com.istekno.githubredesign.model.DeveloperList
 import kotlinx.android.synthetic.main.item_card_home_most_popular.view.*
 
 class CardViewMostPopularAdapter(private val listMostPopularDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewMostPopularAdapter.CardViewHolder>() {

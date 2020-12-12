@@ -1,26 +1,25 @@
-package com.istekno.githubredesign.api
+package com.istekno.githubredesign.db
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.istekno.githubredesign.data.DeveloperDetail
-import com.istekno.githubredesign.data.DeveloperList
-import com.istekno.githubredesign.data.Follows
-import com.istekno.githubredesign.data.Repository
+import androidx.lifecycle.MutableLiveData
+import com.istekno.githubredesign.model.DeveloperDetail
+import com.istekno.githubredesign.model.DeveloperList
+import com.istekno.githubredesign.model.Follows
+import com.istekno.githubredesign.model.Repository
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONObject
 
-open class API {
+class BaseAPI {
 
-    fun getDeveloperListData(view: View, progressBarID: View, progressBarIsActive: Boolean, arrayList: ArrayList<DeveloperList>, url: String, empty: Boolean, isMaxActive: Boolean, listAction: () -> Unit) {
+    fun getDeveloperListData(listDeveloper: MutableLiveData<ArrayList<DeveloperList>>, empty: Boolean, url: String, isMaxActive: Boolean, listAction: () -> Unit) {
+        val listItems = ArrayList<DeveloperList>()
         val client = AsyncHttpClient()
-
-        if (progressBarIsActive) {
-            progressBarID.visibility = View.VISIBLE
-        }
 
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
@@ -30,7 +29,6 @@ open class API {
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-                progressBarID.visibility = View.INVISIBLE
 
                 val res = String(responseBody!!)
                 val result = if (empty) {
@@ -50,17 +48,19 @@ open class API {
                         list.avatar = avatar
 
                         if (isMaxActive) {
-                            if (arrayList.size < 5) {
-                                arrayList.add(list)
+                            if (listItems.size < 5) {
+                                listItems.add(list)
                             }
                         } else {
-                            arrayList.add(list)
+                            listItems.add(list)
                         }
                     }
+
+                    listDeveloper.postValue(listItems)
+                    listAction()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                listAction()
             }
 
             override fun onFailure(
@@ -69,8 +69,6 @@ open class API {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
-                progressBarID.visibility = View.INVISIBLE
-
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"
@@ -78,14 +76,80 @@ open class API {
                     else -> "$statusCode : ${error?.message}"
                 }
 
-                Toast.makeText(view.context, errorMessage, Toast.LENGTH_SHORT).show()
+                if (error != null) {
+                    Log.d("onFailure", errorMessage)
+                }
             }
         })
     }
 
-    fun getDeveloperDetailData(context: Context, loginID: String, arrayList: ArrayList<DeveloperDetail>, listAction: () -> Unit) {
+    fun getDeveloperListData(listDeveloper: ArrayList<DeveloperList>, empty: Boolean, url: String, isMaxActive: Boolean, listAction: () -> Unit) {
         val client = AsyncHttpClient()
-        val url = "https://api.github.com//users/$loginID"
+
+        client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
+        client.addHeader("User-Agent", "request")
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?
+            ) {
+
+                val res = String(responseBody!!)
+                val result = if (empty) {
+                    JSONArray(res)
+                } else {
+                    JSONObject(res).getJSONArray("items")
+                }
+
+                try {
+                    for (i in 0 until result.length()) {
+                        val jsonObject = result.getJSONObject(i)
+                        val username = jsonObject.getString("login")
+                        val avatar = jsonObject.getString("avatar_url")
+
+                        val list = DeveloperList()
+                        list.username = username
+                        list.avatar = avatar
+
+                        if (isMaxActive) {
+                            if (listDeveloper.size < 5) {
+                                listDeveloper.add(list)
+                            }
+                        } else {
+                            listDeveloper.add(list)
+                        }
+                    }
+                    listAction()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                val errorMessage = when (statusCode) {
+                    401 -> "$statusCode : Bad Request"
+                    403 -> "$statusCode : Forbidden"
+                    404 -> "$statusCode : Not Found"
+                    else -> "$statusCode : ${error?.message}"
+                }
+
+                if (error != null) {
+                    Log.d("onFailure", errorMessage)
+                }
+            }
+        })
+    }
+
+    fun getDeveloperDetailData(progressBarID: View, context: Context, loginID: String, arrayList: ArrayList<DeveloperDetail>, listAction: () -> Unit) {
+
+        val client = AsyncHttpClient()
+        val url = "https://api.github.com/users/$loginID"
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
@@ -118,10 +182,10 @@ open class API {
                     developer.following = following.toInt()
 
                     arrayList.add(developer)
+                    listAction()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                listAction()
             }
 
             override fun onFailure(
@@ -130,6 +194,9 @@ open class API {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+
+                progressBarID.visibility = View.INVISIBLE
+
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
                     403 -> "$statusCode : Forbidden"

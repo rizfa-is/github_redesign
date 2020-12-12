@@ -2,26 +2,37 @@ package com.istekno.githubredesign.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapter.developerdetail.DeveloperDetailViewPagerAdapter
-import com.istekno.githubredesign.api.API
-import com.istekno.githubredesign.data.DeveloperDetail
-import com.istekno.githubredesign.data.DeveloperList
+import com.istekno.githubredesign.db.BaseAPI
+import com.istekno.githubredesign.model.DeveloperDetail
+import com.istekno.githubredesign.model.DeveloperList
 import com.istekno.githubredesign.fragments.DeveloperFragment
+import com.istekno.githubredesign.view.RecyclerViewMode
+import com.istekno.githubredesign.view.ResponseAPI
+import com.istekno.githubredesign.viewmodel.BaseViewModel
 import kotlinx.android.synthetic.main.activity_developer_detail.*
 
 class DeveloperDetailActivity : AppCompatActivity() {
 
-    private val getAPI = API()
+    private lateinit var getAPI: BaseAPI
+    private lateinit var responseAPI: ResponseAPI
     private val listDeveloperDetail = ArrayList<DeveloperDetail>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_developer_detail)
 
+        initInheritance()
         developerDetailViewBinding()
         onBtnClick()
+    }
+
+    private fun initInheritance() {
+        getAPI = BaseAPI()
+        responseAPI = ResponseAPI()
     }
 
     private fun developerDetailViewBinding() {
@@ -32,7 +43,13 @@ class DeveloperDetailActivity : AppCompatActivity() {
                 .into(img_developer_detail)
             tv_username_developer_detail.text = developer.username
 
-            getAPI.getDeveloperDetailData(this, developer.username, listDeveloperDetail) { receiveBundleAction() }
+            responseAPI.showLoadingDeveloperDetail(progressBar_devdetail1, progressBar_devdetail2, progressBar_devdetail3, progressBar_devdetail4, progressBar_devdetail5, true)
+            getAPI.getDeveloperDetailData( progressBar_devdetail3,this, developer.username, listDeveloperDetail) {
+                if (listDeveloperDetail.isNotEmpty()) {
+                    receiveBundleAction()
+                    responseAPI.showLoadingDeveloperDetail(progressBar_devdetail1, progressBar_devdetail2, progressBar_devdetail3, progressBar_devdetail4, progressBar_devdetail5, false)
+                }
+            }
 
             val developerDetailAdapter = DeveloperDetailViewPagerAdapter(this, supportFragmentManager, developer.username, developer.avatar)
             vp_developer_detail.adapter = developerDetailAdapter

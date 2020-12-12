@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,88 +12,82 @@
     android:layout_marginTop="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="4dp"
-    android:backgroundTint="@color/colorPrimary"
-    card_view:cardCornerRadius="10dp">
+    android:background="@drawable/shape_bg_item_list">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:padding="8dp">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_item_card_developer"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/circleImageCard"
+        tools:src="@color/colorAccent" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_item_card_developer"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            app:shapeAppearance="@style/circleImageCard"
-            tools:src="@color/colorAccent" />
+    <TextView
+        android:id="@+id/tv_item_card_developer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/img_item_card_developer"
+        android:fontFamily="@font/lato_bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/img_item_card_developer"
+        app:layout_constraintTop_toTopOf="@+id/img_item_card_developer"
+        tools:text="Name" />
 
-        <TextView
-            android:id="@+id/tv_item_card_developer_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_toEndOf="@id/img_item_card_developer"
-            android:fontFamily="@font/lato_bold"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="Name" />
+    <TextView
+        android:id="@+id/tv_item_card_developer_location"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/tv_item_card_developer_name"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/img_item_card_developer"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato_reguler"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/item_card_developer_btn_set_share"
+        app:layout_constraintEnd_toEndOf="@+id/item_card_developer_btn_set_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_card_developer_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_card_developer_name"
+        tools:text="Description" />
 
-        <TextView
-            android:id="@+id/tv_item_card_developer_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_item_card_developer_name"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_toEndOf="@id/img_item_card_developer"
-            android:ellipsize="end"
-            android:fontFamily="@font/lato_reguler"
-            android:textColor="@android:color/darker_gray"
-            tools:text="Description" />
+    <Button
+        android:id="@+id/item_card_developer_btn_set_share"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="@android:color/white"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/share"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_card_developer"
+        app:layout_constraintStart_toEndOf="@+id/img_item_card_developer"
+        app:layout_constraintEnd_toStartOf="@id/item_card_developer_btn_set_detail"/>
 
-        <LinearLayout
-            android:id="@+id/card_developer_layout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="1dp"
-            android:layout_toEndOf="@id/img_item_card_developer"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/item_card_developer_btn_set_detail"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/detail"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_card_developer_btn_set_share"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_card_developer_btn_set_share" />
 
-            <Button
-                android:id="@+id/item_card_developer_btn_set_share"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/share"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/item_card_developer_btn_set_detail"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/colorPrimary"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/detail"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

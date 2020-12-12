@@ -12,17 +12,17 @@ import com.istekno.githubredesign.R
 import com.istekno.githubredesign.activity.DeveloperDetailActivity
 import com.istekno.githubredesign.adapter.homefragment.CardViewExploreContentAdapter
 import com.istekno.githubredesign.adapter.homefragment.CardViewMostPopularAdapter
-import com.istekno.githubredesign.api.API
-import com.istekno.githubredesign.data.Content
-import com.istekno.githubredesign.data.DeveloperList
-import com.istekno.githubredesign.data.MainData
+import com.istekno.githubredesign.db.BaseAPI
+import com.istekno.githubredesign.model.Content
+import com.istekno.githubredesign.model.DeveloperList
+import com.istekno.githubredesign.db.MainData
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment(private val navigationView : NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
 
     private val listMostPopular = ArrayList<DeveloperList>()
     private val listExploreContent = ArrayList<Content>()
-    private val getAPI = API()
+    private val getAPI = BaseAPI()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,6 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
         navigationView.setCheckedItem(R.id.home_nav_drawer)
         val url ="https://api.github.com/users"
 
-        getAPI.getDeveloperListData(view, progressBar_home_list, true, listMostPopular, url, true, true) { showRecycleListMostPopular(view) }
         showRecycleListExploreContent(view)
         actionBarMenuListener()
     }

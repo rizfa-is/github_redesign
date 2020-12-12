@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.Content
+import com.istekno.githubredesign.model.Content
 import kotlinx.android.synthetic.main.item_card_home_explore_content.view.*
 
 class CardViewExploreContentAdapter(private val listContent : ArrayList<Content>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewExploreContentAdapter.CardViewHolder>() {

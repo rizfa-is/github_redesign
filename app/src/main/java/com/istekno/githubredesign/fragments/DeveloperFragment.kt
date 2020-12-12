@@ -1,16 +1,13 @@
 package com.istekno.githubredesign.fragments
 
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -19,16 +16,21 @@ import com.istekno.githubredesign.R.layout
 import com.istekno.githubredesign.activity.DeveloperDetailActivity
 import com.istekno.githubredesign.adapter.developerfragment.CardViewDeveloperAdapter
 import com.istekno.githubredesign.adapter.developerfragment.GridDeveloperAdapter
-import com.istekno.githubredesign.adapter.developerfragment.ListDeveloperAdapter
-import com.istekno.githubredesign.api.API
-import com.istekno.githubredesign.data.DeveloperDetail
-import com.istekno.githubredesign.data.DeveloperList
+import com.istekno.githubredesign.db.BaseAPI
+import com.istekno.githubredesign.model.DeveloperList
+import com.istekno.githubredesign.view.RecyclerViewMode
+import com.istekno.githubredesign.view.ResponseAPI
+import com.istekno.githubredesign.viewmodel.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_developer.*
 
 open class DeveloperFragment(private val navigationView: NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
 
-    private var listDeveloper = ArrayList<DeveloperList>()
-    private val getAPI = API()
+    private lateinit var baseViewModel: BaseViewModel
+    private lateinit var recyclerViewMode: RecyclerViewMode
+    private lateinit var baseAPI: BaseAPI
+    private lateinit var responseAPI: ResponseAPI
+
+    private val listDeveloper = ArrayList<DeveloperList>()
 
     companion object {
         const val INTENT_PARCELABLE = "OBJECT_INTENT"
@@ -50,62 +52,23 @@ open class DeveloperFragment(private val navigationView: NavigationView, private
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigationView.setCheckedItem(R.id.developer_nav_drawer)
+        initInheritance()
 
-        searchByUsername(view)
-    }
-
-    private fun searchByUsername(view: View) {
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = actionBar.menu.findItem(R.id.act_search).actionView as SearchView
-        var url = "https://api.github.com/users"
-        var empty = true
-
-        getListData(1, view, url, true)
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.queryHint = "Input username"
-        searchView.setBackgroundColor(Color.WHITE)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query?.isEmpty()!!) {
-                    url ="https://api.github.com/search/users?q=\"$query\""
-                    empty = false
-                }
-
-                listDeveloper.clear()
-                getListData(2, view, url, empty)
-                return true
+        val url = "https://api.github.com/users"
+        responseAPI.showLoadingDeveloperFragment(progressBar_developer_list, true)
+        baseAPI.getDeveloperListData(listDeveloper, true, url, false) {
+            if (listDeveloper.isNotEmpty()) {
+                recyclerViewMode.showRecyclerList(context, rv_developer, listDeveloper)
+                responseAPI.showLoadingDeveloperFragment(progressBar_developer_list, false)
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (!newText?.isEmpty()!!) {
-                    url ="https://api.github.com/search/users?q=\"$newText\""
-                    empty = false
-                }
-
-                listDeveloper.clear()
-                getListData(2, view, url, empty)
-                return false
-            }
-        })
-    }
-
-    private fun getListData(position: Int, view: View, url: String, empty: Boolean) {
-        if (position == 1) {
-            getAPI.getDeveloperListData(view, progressBar_developer_list, true, listDeveloper, url, empty, false) { actionMenuListener(listDeveloper) }
-        } else {
-            getAPI.getDeveloperListData(view, progressBar_developer_list, false, listDeveloper, url, empty, true) { actionMenuListener(listDeveloper) }
         }
     }
 
-    private fun showRecyclerList(list: ArrayList<DeveloperList>) {
-        rv_developer.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ListDeveloperAdapter(list, object : ListDeveloperAdapter.OnItemClickCallback {
-                override fun onItemClicked(developerList: DeveloperList) {
-                    showActionClickCallback(developerList)
-                }
-            })
-        }
+    private fun initInheritance() {
+        recyclerViewMode = RecyclerViewMode()
+        baseViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(BaseViewModel::class.java)
+        baseAPI = BaseAPI()
+        responseAPI = ResponseAPI()
     }
 
     private fun showRecyclerGrid(list: ArrayList<DeveloperList>) {
@@ -158,12 +121,10 @@ open class DeveloperFragment(private val navigationView: NavigationView, private
     }
 
     private fun actionMenuListener(list: ArrayList<DeveloperList>) {
-        showRecyclerList(list)
 
         actionBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.fab_list -> {
-                    showRecyclerList(list)
                     Toast.makeText(context, "Select List", Toast.LENGTH_SHORT).show()
                 }
                 R.id.fab_grid -> {

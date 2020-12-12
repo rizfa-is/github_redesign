@@ -9,10 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.data.DeveloperList
+import com.istekno.githubredesign.model.DeveloperList
 import kotlinx.android.synthetic.main.item_row_developer.view.*
 
-class ListDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<ListDeveloperAdapter.ListViewHolder>() {
+class ListDeveloperAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<ListDeveloperAdapter.ListViewHolder>() {
+
+    private val dataDeveloperList = ArrayList<DeveloperList>()
+    
+    fun setData(items: ArrayList<DeveloperList>) {
+        dataDeveloperList.clear()
+        dataDeveloperList.addAll(items)
+        notifyDataSetChanged()
+    }
 
     interface OnItemClickCallback {
         fun onItemClicked(developerList: DeveloperList)
@@ -31,7 +39,7 @@ class ListDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperLis
             this.devName.text = DeveloperList.username
 
             this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + DeveloperList.username, Toast.LENGTH_SHORT).show() }
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(dataDeveloperList[this.adapterPosition]) }
         }
     }
 
@@ -41,8 +49,8 @@ class ListDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperLis
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listDeveloperList[position])
+        holder.bind(dataDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloperList.size
+    override fun getItemCount(): Int = dataDeveloperList.size
 }

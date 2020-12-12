@@ -1,4 +1,7 @@
-package com.istekno.githubredesign.data
+package com.istekno.githubredesign.db
+
+import com.istekno.githubredesign.model.Content
+import com.istekno.githubredesign.model.DeveloperDetail
 
 object MainData {
     private val developerName = arrayOf(

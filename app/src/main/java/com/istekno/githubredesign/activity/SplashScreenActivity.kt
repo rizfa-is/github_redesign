@@ -1,4 +1,4 @@
-package com.istekno.githubredesign.features
+package com.istekno.githubredesign.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.activity.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

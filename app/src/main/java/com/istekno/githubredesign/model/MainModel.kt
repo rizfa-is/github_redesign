@@ -1,4 +1,4 @@
-package com.istekno.githubredesign.data
+package com.istekno.githubredesign.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

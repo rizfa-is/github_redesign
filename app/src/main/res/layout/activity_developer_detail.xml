@@ -62,11 +62,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="330dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="@string/temp"
                 android:textColor="@android:color/white"
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tv_company_developer_detail"
@@ -76,7 +76,6 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato_reguler"
                 android:letterSpacing="0.05"
-                android:text="@string/temp"
                 android:textColor="#ececec"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,34 +89,11 @@
                 android:layout_marginTop="12dp"
                 android:drawablePadding="7dp"
                 android:letterSpacing="0.05"
-                android:text="@string/temp"
                 android:textColor="#95ececec"
                 app:drawableStartCompat="@drawable/ic_location"
                 app:drawableTint="#95ececec"
                 app:layout_constraintStart_toStartOf="@+id/img_developer_detail"
                 app:layout_constraintTop_toBottomOf="@+id/tv_company_developer_detail" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/developer_detail_circleImageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="16dp"
-                android:elevation="1dp"
-                android:src="@color/colorFavorite1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_location_developer_detail"
-                app:shapeAppearance="@style/circleImage." />
-
-            <ImageView
-                android:id="@+id/developer_detail_btn_favorite"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="2dp"
-                android:src="@drawable/ic_favorite_unchecked"
-                app:layout_constraintBottom_toBottomOf="@+id/developer_detail_circleImageView"
-                app:layout_constraintEnd_toEndOf="@+id/developer_detail_circleImageView"
-                app:layout_constraintStart_toStartOf="@+id/developer_detail_circleImageView"
-                app:layout_constraintTop_toTopOf="@+id/developer_detail_circleImageView" />
 
             <ImageView
                 android:id="@+id/background_developer"
@@ -130,13 +106,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_location_developer_detail" />
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/developer_detail_circleImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:src="@color/colorFavorite1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location_developer_detail"
+                app:shapeAppearance="@style/circleImage." />
+
+            <ImageView
+                android:id="@+id/developer_detail_btn_favorite"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_favorite_unchecked"
+                app:layout_constraintBottom_toBottomOf="@+id/developer_detail_circleImageView"
+                app:layout_constraintEnd_toEndOf="@+id/developer_detail_circleImageView"
+                app:layout_constraintStart_toStartOf="@+id/developer_detail_circleImageView"
+                app:layout_constraintTop_toTopOf="@+id/developer_detail_circleImageView" />
+
             <TextView
                 android:id="@+id/tv_username_developer_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:drawablePadding="7dp"
-                android:elevation="2dp"
                 android:fontFamily="@font/roboto_condensed_bold"
                 android:letterSpacing="0.05"
                 android:text="@string/temp"
@@ -154,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/state_content_background"
                 android:fontFamily="@font/crimson_text_bold"
-                android:text="@string/temp"
                 android:textColor="@color/colorFavorite1"
                 android:textSize="35sp"
                 android:textStyle="bold"
@@ -182,7 +176,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/state_content_background"
                 android:fontFamily="@font/crimson_text_bold"
-                android:text="@string/temp"
                 android:textColor="@color/colorFavorite1"
                 android:textSize="35sp"
                 android:textStyle="bold"
@@ -211,7 +204,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/state_content_background"
                 android:fontFamily="@font/crimson_text_bold"
-                android:text="@string/temp"
                 android:textColor="@color/colorFavorite1"
                 android:textSize="35sp"
                 android:textStyle="bold"
@@ -232,6 +224,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_following_number" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
                 android:layout_marginTop="24dp"
@@ -258,10 +251,60 @@
                     android:id="@+id/vp_developer_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
-                    android:background="@android:color/white"/>
+                    android:background="@android:color/white"
+                    android:padding="8dp" />
 
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar_devdetail1"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="68dp"
+                app:layout_constraintBottom_toTopOf="@+id/background_developer"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_devdetail2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toTopOf="@+id/background_developer"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_devdetail3"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tv_repository_number"
+                app:layout_constraintEnd_toEndOf="@+id/tv_repository_number"
+                app:layout_constraintStart_toStartOf="@+id/tv_repository_number"
+                app:layout_constraintTop_toTopOf="@+id/tv_repository_number" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_devdetail4"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tv_follower_number"
+                app:layout_constraintEnd_toEndOf="@+id/tv_follower_number"
+                app:layout_constraintStart_toStartOf="@+id/tv_follower_number"
+                app:layout_constraintTop_toTopOf="@+id/tv_follower_number" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_devdetail5"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tv_following_number"
+                app:layout_constraintEnd_toEndOf="@+id/tv_following_number"
+                app:layout_constraintStart_toStartOf="@+id/tv_following_number"
+                app:layout_constraintTop_toTopOf="@+id/tv_following_number" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
