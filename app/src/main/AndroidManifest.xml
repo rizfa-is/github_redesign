@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DeveloperDetailActivity"  android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.istekno.githubredesign.views.activity.DeveloperDetailActivity"  android:configChanges="orientation|screenSize"/>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.istekno.githubredesign.views.activity.MainActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".activity.SplashScreenActivity"
+            android:name="com.istekno.githubredesign.views.activity.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
