@@ -23,7 +23,7 @@ data class DeveloperList (
 
 @Parcelize
 data class Content (
-    var name : String = "",
+    var name : Int = 0,
     var photo : String = ""
 ) : Parcelable
 

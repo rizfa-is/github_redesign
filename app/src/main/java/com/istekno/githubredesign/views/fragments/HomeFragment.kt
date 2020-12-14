@@ -56,17 +56,17 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
         var fragmentTAG : String? = null
 
         when(content.name) {
-            "Developer" -> {
+            R.string.developer -> {
                 fragmentClass = DeveloperFragment(navigationView, actionBar)
                 fragmentTAG = DeveloperFragment::class.java.simpleName
             }
 
-            "Challenges" -> {
+            R.string.challenges -> {
                 fragmentClass = ChallengesFragment(navigationView, actionBar)
                 fragmentTAG = ChallengesFragment::class.java.simpleName
             }
 
-            "Study Room" -> {
+            R.string.study_room -> {
                 fragmentClass = StudyRoomFragment(navigationView, actionBar)
                 fragmentTAG = StudyRoomFragment::class.java.simpleName
             }

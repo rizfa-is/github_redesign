@@ -10,7 +10,15 @@ import com.istekno.githubredesign.R
 import com.istekno.githubredesign.models.DeveloperList
 import kotlinx.android.synthetic.main.item_grid_developer.view.*
 
-class GridDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<GridDeveloperAdapter.GridViewHolder>() {
+class GridDeveloperAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<GridDeveloperAdapter.GridViewHolder>() {
+
+    private val dataDeveloperList = ArrayList<DeveloperList>()
+
+    fun setData(items: ArrayList<DeveloperList>) {
+        dataDeveloperList.clear()
+        dataDeveloperList.addAll(items)
+        notifyDataSetChanged()
+    }
 
     interface OnItemClickCallback {
         fun onItemClicked(developerList: DeveloperList)
@@ -25,7 +33,7 @@ class GridDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperLis
 
             this.itemView.tv_name_developer_grid.text = DeveloperList.username
 
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(dataDeveloperList[this.adapterPosition]) }
         }
     }
 
@@ -35,8 +43,8 @@ class GridDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperLis
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        holder.bind(listDeveloperList[position])
+        holder.bind(dataDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloperList.size
+    override fun getItemCount(): Int = dataDeveloperList.size
 }

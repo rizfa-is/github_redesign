@@ -1,5 +1,6 @@
 package com.istekno.githubredesign.databases
 
+import com.istekno.githubredesign.R
 import com.istekno.githubredesign.models.Content
 import com.istekno.githubredesign.models.DeveloperDetail
 
@@ -109,9 +110,9 @@ object MainData {
     )
 
     private val mostPopularName = arrayOf(
-        "Developer",
-        "Challenges",
-        "Study Room"
+        R.string.developer,
+        R.string.challenges,
+        R.string.study_room
     )
 
     private val mostPopularImage = arrayOf(

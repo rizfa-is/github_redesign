@@ -28,7 +28,7 @@ class CardViewExploreContentAdapter(private val listContent : ArrayList<Content>
                     .apply(RequestOptions().override(630, 360))
                     .into(itemView.explore_content_img)
 
-                this.contentName.text = content.name
+                this.contentName.text = content.name.toString()
                 this.checkMore.setOnClickListener { onItemClickCallback.onItemClicked(listContent[this.adapterPosition]) }
             }
     }

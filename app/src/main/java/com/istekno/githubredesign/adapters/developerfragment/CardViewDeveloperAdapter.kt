@@ -12,7 +12,15 @@ import com.istekno.githubredesign.R
 import com.istekno.githubredesign.models.DeveloperList
 import kotlinx.android.synthetic.main.item_card_developer.view.*
 
-class CardViewDeveloperAdapter(private val listDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewDeveloperAdapter.CardViewViewHolder>() {
+class CardViewDeveloperAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewDeveloperAdapter.CardViewViewHolder>() {
+
+    private val dataDeveloperList = ArrayList<DeveloperList>()
+
+    fun setData(items: ArrayList<DeveloperList>) {
+        dataDeveloperList.clear()
+        dataDeveloperList.addAll(items)
+        notifyDataSetChanged()
+    }
 
     interface OnItemClickCallback {
         fun onItemClicked(developerList: DeveloperList, itemView: View)
@@ -32,8 +40,8 @@ class CardViewDeveloperAdapter(private val listDeveloperList: ArrayList<Develope
 
             this.devName.text = DeveloperList.username
 
-            this.btnShare.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition], this.btnShare) }
-            this.btnDetail.setOnClickListener { onItemClickCallback.onItemClicked(listDeveloperList[this.adapterPosition], this.btnDetail) }
+            this.btnShare.setOnClickListener { onItemClickCallback.onItemClicked(dataDeveloperList[this.adapterPosition], this.btnShare) }
+            this.btnDetail.setOnClickListener { onItemClickCallback.onItemClicked(dataDeveloperList[this.adapterPosition], this.btnDetail) }
         }
     }
 
@@ -43,8 +51,8 @@ class CardViewDeveloperAdapter(private val listDeveloperList: ArrayList<Develope
     }
 
     override fun onBindViewHolder(holder: CardViewViewHolder, position: Int) {
-        holder.bind(listDeveloperList[position])
+        holder.bind(dataDeveloperList[position])
     }
 
-    override fun getItemCount(): Int = listDeveloperList.size
+    override fun getItemCount(): Int = dataDeveloperList.size
 }

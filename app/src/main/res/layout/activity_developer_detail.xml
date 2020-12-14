@@ -134,7 +134,6 @@
                 android:drawablePadding="7dp"
                 android:fontFamily="@font/roboto_condensed_bold"
                 android:letterSpacing="0.05"
-                android:text="@string/temp"
                 android:textColor="#ececec"
                 app:drawableStartCompat="@drawable/ic_username"
                 app:drawableTint="@color/colorFavorite1"
