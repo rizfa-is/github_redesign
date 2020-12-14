@@ -16,7 +16,6 @@ class ChallengesFragment(private val navigationView : NavigationView, private va
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
-        actionBar.menu?.findItem(R.id.act_search)?.isVisible = false
         actionBar.title = resources.getString(R.string.challenges)
 
         // Inflate the layout for this fragment

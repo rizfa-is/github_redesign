@@ -7,6 +7,34 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+    <View
+        android:id="@+id/view_developer_list"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_developer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/editCity_developer_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_weight="0.8"
+        android:background="@android:color/white"
+        android:hint="@string/input_username"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableTint="@android:color/black"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@+id/view_developer_list"
+        app:layout_constraintStart_toStartOf="@+id/view_developer_list"
+        app:layout_constraintEnd_toEndOf="@+id/view_developer_list"
+        app:layout_constraintBottom_toBottomOf="@+id/view_developer_list"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_developer"
         android:layout_width="match_parent"
@@ -14,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_developer_list"
         tools:listitem="@layout/item_row_developer" />
 
     <ProgressBar

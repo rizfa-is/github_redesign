@@ -16,7 +16,6 @@ class AboutUsFragment(private val navigationView : NavigationView, private val a
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = false
-        actionBar.menu?.findItem(R.id.act_search)?.isVisible = false
         actionBar.title = resources.getString(R.string.about_us)
 
         // Inflate the layout for this fragment

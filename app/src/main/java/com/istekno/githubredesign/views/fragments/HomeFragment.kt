@@ -30,7 +30,6 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
     ): View? {
         actionBar.menu?.findItem(R.id.act_listOption)?.isVisible = false
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
-        actionBar.menu?.findItem(R.id.act_search)?.isVisible = false
         actionBar.title = resources.getString(R.string.home)
 
         return inflater.inflate(R.layout.fragment_home, container, false)

@@ -50,7 +50,7 @@
             <ImageView
                 android:id="@+id/developer_detail_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:src="@drawable/shape_img_developer_detail_gradient"
                 app:layout_constraintBottom_toBottomOf="@+id/img_developer_detail"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="330dp"
+                android:layout_marginTop="350dp"
                 android:fontFamily="@font/lato_bold"
                 android:textColor="@android:color/white"
                 android:textSize="35sp"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/lato_reguler"
                 android:letterSpacing="0.05"
                 android:textColor="#ececec"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:drawablePadding="7dp"
                 android:letterSpacing="0.05"
                 android:textColor="#95ececec"
@@ -99,7 +99,7 @@
                 android:id="@+id/background_developer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/shape_developer_info"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,8 +112,8 @@
                 android:layout_height="50dp"
                 android:layout_marginEnd="16dp"
                 android:src="@color/colorFavorite1"
+                app:layout_constraintBottom_toTopOf="@+id/tv_username_developer_detail"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_location_developer_detail"
                 app:shapeAppearance="@style/circleImage." />
 
             <ImageView
@@ -261,7 +261,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="68dp"
+                android:layout_marginBottom="56dp"
                 app:layout_constraintBottom_toTopOf="@+id/background_developer"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -271,7 +271,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="44dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/background_developer"
                 app:layout_constraintStart_toStartOf="parent" />
 

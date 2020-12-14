@@ -2,8 +2,6 @@ package com.istekno.githubredesign.helpers
 
 import android.app.Activity
 import android.view.View
-import kotlinx.android.synthetic.main.activity_developer_detail.*
-import kotlinx.android.synthetic.main.fragment_developer.*
 import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.android.synthetic.main.fragment_following.*
 import kotlinx.android.synthetic.main.fragment_home.*

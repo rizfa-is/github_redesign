@@ -17,7 +17,7 @@ import org.json.JSONObject
 
 class BaseAPI {
 
-    fun getDeveloperListData(listDeveloper: MutableLiveData<ArrayList<DeveloperList>>, empty: Boolean, url: String, isMaxActive: Boolean, listAction: () -> Unit) {
+    fun getDeveloperListData(listDeveloper: MutableLiveData<ArrayList<DeveloperList>>, empty: Boolean, url: String, isMaxActive: Boolean) {
         val listItems = ArrayList<DeveloperList>()
         val client = AsyncHttpClient()
 
@@ -57,7 +57,7 @@ class BaseAPI {
                     }
 
                     listDeveloper.postValue(listItems)
-                    listAction()
+                    Log.d("BaseAPI() : ", listItems.toString())
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

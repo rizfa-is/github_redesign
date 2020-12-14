@@ -3,59 +3,75 @@ package com.istekno.githubredesign.helpers
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.adapters.developerfragment.CardViewDeveloperAdapter
-import com.istekno.githubredesign.adapters.developerfragment.GridDeveloperAdapter
-import com.istekno.githubredesign.views.activity.DeveloperDetailActivity
 import com.istekno.githubredesign.adapters.developerfragment.ListDeveloperAdapter
-import com.istekno.githubredesign.views.fragments.DeveloperFragment
 import com.istekno.githubredesign.models.DeveloperList
+import com.istekno.githubredesign.viewmodels.BaseViewModel
+import com.istekno.githubredesign.views.activity.DeveloperDetailActivity
+import com.istekno.githubredesign.views.fragments.DeveloperFragment
 
 class RecyclerViewMode {
 
-    fun showRecyclerList(context: Context?, recyclerView: RecyclerView, arrayList: ArrayList<DeveloperList>) {
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            val listAdapter = ListDeveloperAdapter(object : ListDeveloperAdapter.OnItemClickCallback {
-                override fun onItemClicked(developerList: DeveloperList) {
-                    showActionClickCallback(developerList, context)
+    private lateinit var baseViewModel: BaseViewModel
+
+    fun getRecyclerView(owner: ViewModelStoreOwner, ownerLC: LifecycleOwner, searchView: android.widget.SearchView, progressBarID: View, position: Int, context: Context?, recyclerView: RecyclerView) {
+        checkLayout(owner, ownerLC, searchView, progressBarID, position, context, recyclerView)
+    }
+
+    private fun checkLayout(owner: ViewModelStoreOwner, ownerLC: LifecycleOwner, searchView: android.widget.SearchView, progressBarID: View, position: Int, context: Context?, recyclerView: RecyclerView) {
+        val responseAPI = ResponseAPI()
+        val searchDeveloperView = SearchDeveloperView()
+        baseViewModel = BaseViewModel()
+
+        when (position) {
+            0 -> {
+                recyclerView.apply {
+                    val developerAdapter = ListDeveloperAdapter(object : ListDeveloperAdapter.OnItemClickCallback {
+                        override fun onItemClicked(developerList: DeveloperList) {
+                            showActionClickCallback(developerList, context)
+                        }
+                    })
+
+                    developerAdapter.notifyDataSetChanged()
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = developerAdapter
+
+                    baseViewModel = ViewModelProvider(owner, ViewModelProvider.NewInstanceFactory()).get(BaseViewModel::class.java)
+                    baseViewModel.setListDeveloperByPass(true, false)
+                    searchDeveloperView.searchByUsername(searchView, progressBarID, responseAPI, baseViewModel)
+                    baseViewModel.getListDeveloper().observe(ownerLC, Observer { listItems ->
+                        if (listItems != null) {
+                            developerAdapter.setData(listItems)
+                            responseAPI.showLoadingDeveloperFragment(progressBarID, false)
+                        }
+                    })
                 }
-            })
-            listAdapter.setData(arrayList)
-            adapter = listAdapter
+            }
+            1 -> {
+//                recyclerView.apply {
+//                    listAdapter.notifyDataSetChanged()
+//                    layoutManager = GridLayoutManager(context, 2)
+//                    adapter = listAdapter
+//                }
+            }
+            2 -> {
+
+            }
         }
     }
 
-    fun showRecyclerGrid(context: Context?, recyclerView: RecyclerView, arrayList: ArrayList<DeveloperList>) {
-        recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            val gridAdapter = GridDeveloperAdapter(object : GridDeveloperAdapter.OnItemClickCallback {
-                override fun onItemClicked(developerList: DeveloperList) {
-                    showActionClickCallback(developerList, context)
-                }
-            })
-            gridAdapter.setData(arrayList)
-            adapter = gridAdapter
-        }
+    private fun rvAdapter() {
+
     }
 
-    fun showRecyclerCard(context: Context?, recyclerView: RecyclerView, arrayList: ArrayList<DeveloperList>) {
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            val cardAdapter = CardViewDeveloperAdapter(object : CardViewDeveloperAdapter.OnItemClickCallback {
-                override fun onItemClicked(developerList: DeveloperList, itemView: View) {
-                    showActionClickCallback(developerList, context, itemView)
-                }
-            })
-            cardAdapter.setData(arrayList)
-            adapter = cardAdapter
-        }
-    }
-
-    private fun showActionClickCallback(developerDetail: DeveloperList, context: Context?, view: View) {
+    fun showActionClickCallback(developerDetail: DeveloperList, context: Context?, view: View) {
         when (view.id) {
             R.id.item_card_developer_btn_set_share -> {
                 val uriString = "Go to my Github's Profile and let's make a change by code the future\n"+"https://github.com/${developerDetail.username}"
@@ -76,7 +92,7 @@ class RecyclerViewMode {
         }
     }
 
-    private fun showActionClickCallback(developerList: DeveloperList, context: Context?) {
+    fun showActionClickCallback(developerList: DeveloperList, context: Context?) {
         val intent = Intent(context, DeveloperDetailActivity::class.java)
         intent.putExtra(DeveloperFragment.INTENT_PARCELABLE, developerList)
         context?.startActivity(intent)
