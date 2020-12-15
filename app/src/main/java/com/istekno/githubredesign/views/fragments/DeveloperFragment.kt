@@ -7,23 +7,15 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.R.layout
-import com.istekno.githubredesign.adapters.developerfragment.ListDeveloperAdapter
-import com.istekno.githubredesign.models.DeveloperList
 import com.istekno.githubredesign.helpers.RecyclerViewMode
-import com.istekno.githubredesign.helpers.ResponseAPI
-import com.istekno.githubredesign.helpers.SearchDeveloperView
-import com.istekno.githubredesign.viewmodels.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_developer.*
 
 open class DeveloperFragment(private val navigationView: NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
 
-    private lateinit var baseViewModel: BaseViewModel
-    private lateinit var developerAdapter: ListDeveloperAdapter
+    private lateinit var recyclerViewMode: RecyclerViewMode
 
     companion object {
         const val INTENT_PARCELABLE = "OBJECT_INTENT"
@@ -44,31 +36,27 @@ open class DeveloperFragment(private val navigationView: NavigationView, private
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigationView.setCheckedItem(R.id.developer_nav_drawer)
-        val recyclerViewMode = RecyclerViewMode()
         val sv = view.findViewById<SearchView>(R.id.editCity_developer_list)
-        initInheritance()
+        recyclerViewMode = RecyclerViewMode()
 
-        recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, sv, progressBar_developer_list, 0, context, rv_developer)
-        actionMenuListener()
+        recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, sv, progressBar_developer_list, 3, context, rv_developer)
+        actionMenuListener(sv)
     }
 
-    private fun initInheritance() {
-
-    }
-
-    private fun actionMenuListener() {
+    private fun actionMenuListener(searchView: SearchView) {
+        recyclerViewMode = RecyclerViewMode()
         actionBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.fab_list -> {
-
+                    recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, searchView, progressBar_developer_list, 0, context, rv_developer)
                     Toast.makeText(context, "Select List", Toast.LENGTH_SHORT).show()
                 }
                 R.id.fab_grid -> {
-
+                    recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, searchView, progressBar_developer_list, 1, context, rv_developer)
                     Toast.makeText(context, "Select Grid", Toast.LENGTH_SHORT).show()
                 }
                 R.id.fab_cardView -> {
-
+                    recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, searchView, progressBar_developer_list, 2, context, rv_developer)
                     Toast.makeText(context, "Select CardView", Toast.LENGTH_SHORT).show()
                 }
                 R.id.act_favorite -> {

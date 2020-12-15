@@ -7,23 +7,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
+import com.istekno.githubredesign.models.DeveloperDetail
 import com.istekno.githubredesign.models.DeveloperList
 import kotlinx.android.synthetic.main.item_card_home_most_popular.view.*
 
-class CardViewMostPopularAdapter(private val listMostPopularDeveloperList: ArrayList<DeveloperList>, private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewMostPopularAdapter.CardViewHolder>() {
+class CardViewMostPopularAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewMostPopularAdapter.CardViewHolder>() {
+
+    private val listMostPopularDeveloperList = ArrayList<DeveloperDetail>()
+
+    fun setData(items: ArrayList<DeveloperDetail>) {
+        listMostPopularDeveloperList.clear()
+        listMostPopularDeveloperList.addAll(items)
+        notifyDataSetChanged()
+    }
 
     interface OnItemClickCallback {
-        fun onItemClicked(developerList: DeveloperList)
+        fun onItemClicked(developerDetail: DeveloperDetail)
     }
 
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(DeveloperList: DeveloperList) {
+        fun bind(developerDetail: DeveloperDetail) {
             Glide.with(itemView.context)
-                .load(DeveloperList.avatar)
+                .load(developerDetail.avatar)
                 .apply(RequestOptions().override(140, 140))
                 .into(itemView.img_cardView_photo)
 
-            this.itemView.name_most_popular.text = DeveloperList.username
+            this.itemView.name_most_popular.text = developerDetail.username
 
             val mpUp = this.itemView.mp_background_up
             val medal = this.itemView.medal_most_popular

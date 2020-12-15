@@ -17,8 +17,8 @@ import org.json.JSONObject
 
 class BaseAPI {
 
-    fun getDeveloperListData(listDeveloper: MutableLiveData<ArrayList<DeveloperList>>, empty: Boolean, url: String, isMaxActive: Boolean) {
-        val listItems = ArrayList<DeveloperList>()
+    fun getDeveloperListData(listDeveloper: MutableLiveData<ArrayList<DeveloperDetail>>, empty: Boolean, url: String, isMaxActive: Boolean) {
+        val listItems = ArrayList<DeveloperDetail>()
         val client = AsyncHttpClient()
 
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
@@ -43,16 +43,14 @@ class BaseAPI {
                         val username = jsonObject.getString("login")
                         val avatar = jsonObject.getString("avatar_url")
 
-                        val list = DeveloperList()
-                        list.username = username
-                        list.avatar = avatar
+                        val developerDetail = DeveloperDetail()
+                        developerDetail.username = username
+                        developerDetail.avatar = avatar
 
                         if (isMaxActive) {
-                            if (listItems.size < 5) {
-                                listItems.add(list)
-                            }
+                            if (listItems.size < 5) listItems.add(developerDetail)
                         } else {
-                            listItems.add(list)
+                            listItems.add(developerDetail)
                         }
                     }
 
@@ -83,9 +81,9 @@ class BaseAPI {
         })
     }
 
-    fun getDeveloperListData(listDeveloper: ArrayList<DeveloperList>, empty: Boolean, url: String, isMaxActive: Boolean, listAction: () -> Unit) {
+    fun getDeveloperDetailData(loginID: String, arrayList: ArrayList<DeveloperDetail>) {
         val client = AsyncHttpClient()
-
+        val url = "https://api.github.com/users/$loginID"
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
@@ -94,33 +92,30 @@ class BaseAPI {
                 headers: Array<out Header>?,
                 responseBody: ByteArray?
             ) {
-
-                val res = String(responseBody!!)
-                val result = if (empty) {
-                    JSONArray(res)
-                } else {
-                    JSONObject(res).getJSONArray("items")
-                }
-
+                val result = String(responseBody!!)
                 try {
-                    for (i in 0 until result.length()) {
-                        val jsonObject = result.getJSONObject(i)
-                        val username = jsonObject.getString("login")
-                        val avatar = jsonObject.getString("avatar_url")
 
-                        val list = DeveloperList()
-                        list.username = username
-                        list.avatar = avatar
+                    val responsObject = JSONObject(result)
+                    val avatar = responsObject.getString("avatar_url")
+                    val name = responsObject.getString("name")
+                    val company = responsObject.getString("company")
+                    val location = responsObject.getString("location")
+                    val username = responsObject.getString("login")
+                    val repository = responsObject.getString("public_repos")
+                    val follower = responsObject.getString("followers")
+                    val following = responsObject.getString("following")
 
-                        if (isMaxActive) {
-                            if (listDeveloper.size < 5) {
-                                listDeveloper.add(list)
-                            }
-                        } else {
-                            listDeveloper.add(list)
-                        }
-                    }
-                    listAction()
+                    val developer = DeveloperDetail()
+                    developer.avatar = avatar
+                    developer.name = name
+                    developer.company = company
+                    developer.location = location
+                    developer.username = username
+                    developer.repository = repository.toInt()
+                    developer.follower = follower.toInt()
+                    developer.following = following.toInt()
+
+                    arrayList.add(developer)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -147,7 +142,6 @@ class BaseAPI {
     }
 
     fun getDeveloperDetailData(progressBarID: View, context: Context, loginID: String, arrayList: ArrayList<DeveloperDetail>, listAction: () -> Unit) {
-
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$loginID"
         client.addHeader("Authorization", "token 7a0c2e4541faeb65b97b48e93a9881c3f8409fac")

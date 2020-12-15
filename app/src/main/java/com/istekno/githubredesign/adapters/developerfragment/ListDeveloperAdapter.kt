@@ -9,36 +9,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
+import com.istekno.githubredesign.models.DeveloperDetail
 import com.istekno.githubredesign.models.DeveloperList
 import kotlinx.android.synthetic.main.item_row_developer.view.*
 
 class ListDeveloperAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<ListDeveloperAdapter.ListViewHolder>() {
 
-    private val dataDeveloperList = ArrayList<DeveloperList>()
+    private val dataDeveloperList = ArrayList<DeveloperDetail>()
     
-    fun setData(items: ArrayList<DeveloperList>) {
+    fun setData(items: ArrayList<DeveloperDetail>) {
         dataDeveloperList.clear()
         dataDeveloperList.addAll(items)
         notifyDataSetChanged()
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(developerList: DeveloperList)
+        fun onItemClicked(developerDetail: DeveloperDetail)
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val devName : TextView = itemView.findViewById(R.id.tv_item_row_developer_name)
+        private val devLocation : TextView = itemView.findViewById(R.id.tv_item_row_developer_location)
 
-        fun bind(DeveloperList: DeveloperList) {
+        fun bind(developerDetail: DeveloperDetail) {
             Glide.with(itemView.context)
-                .load(DeveloperList.avatar)
+                .load(developerDetail.avatar)
                 .apply(RequestOptions().override(55, 55))
                 .into(itemView.img_item_row_developer)
 
-            this.devName.text = DeveloperList.username
+            this.devName.text = developerDetail.username
+            this.devLocation.text = developerDetail.location
 
-            this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + DeveloperList.username, Toast.LENGTH_SHORT).show() }
+            this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + developerDetail.username, Toast.LENGTH_SHORT).show() }
             this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(dataDeveloperList[this.adapterPosition]) }
         }
     }

@@ -1,5 +1,6 @@
 package com.istekno.githubredesign.databases
 
+import androidx.annotation.StringRes
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.models.Content
 import com.istekno.githubredesign.models.DeveloperDetail
@@ -109,19 +110,6 @@ object MainData {
         10
     )
 
-    private val mostPopularName = arrayOf(
-        R.string.developer,
-        R.string.challenges,
-        R.string.study_room
-    )
-
-    private val mostPopularImage = arrayOf(
-        "https://static.vecteezy.com/system/resources/previews/000/228/437/non_2x/female-developer-vector-illustration.jpg",
-        "https://img.freepik.com/free-vector/man-woman-business-reward-satisfaction-employee_159757-33.jpg?size=626&ext=jpg",
-        "https://img.freepik.com/free-vector/students-studying-textbooks_74855-5294.jpg?size=626&ext=jpg"
-    )
-
-
     val listDataDeveloperDetail : ArrayList<DeveloperDetail>
         get() {
             val listData = arrayListOf<DeveloperDetail>()
@@ -160,18 +148,4 @@ object MainData {
             }
             return listDataDeveloper
         }
-
-    val listDataExploreContent : ArrayList<Content>
-        get() {
-            val listExploreContent = arrayListOf<Content>()
-            for (position in mostPopularName.indices) {
-                val content = Content(
-                    mostPopularName[position],
-                    mostPopularImage[position]
-                )
-                listExploreContent.add(content)
-            }
-            return listExploreContent
-        }
-
 }

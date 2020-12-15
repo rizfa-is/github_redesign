@@ -11,7 +11,7 @@
     android:background="@drawable/shape_bg_item_list">
 
     <ImageView
-        android:id="@+id/explore_content_img"
+        android:id="@+id/explore_challenges_img"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:scaleType="centerCrop"
@@ -28,15 +28,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/lato_bold"
-        android:text="@string/name_mostpopular"
+        android:text="@string/challenges"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/explore_content_img" />
+        card_view:layout_constraintTop_toBottomOf="@+id/explore_challenges_img" />
 
     <TextView
-        android:id="@+id/explore_content_more"
+        android:id="@+id/explore_challenges_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

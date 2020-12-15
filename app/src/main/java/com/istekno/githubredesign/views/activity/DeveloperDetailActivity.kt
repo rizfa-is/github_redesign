@@ -33,7 +33,7 @@ class DeveloperDetailActivity : AppCompatActivity() {
     }
 
     private fun developerDetailViewBinding() {
-        val developer = intent.getParcelableExtra<DeveloperList>(DeveloperFragment.INTENT_PARCELABLE)
+        val developer = intent.getParcelableExtra<DeveloperDetail>(DeveloperFragment.INTENT_PARCELABLE)
         if (developer != null) {
             Glide.with(this)
                 .load(developer.avatar)

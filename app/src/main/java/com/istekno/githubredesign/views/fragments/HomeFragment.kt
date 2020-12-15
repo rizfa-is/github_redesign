@@ -1,28 +1,27 @@
 package com.istekno.githubredesign.views.fragments
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.views.activity.DeveloperDetailActivity
-import com.istekno.githubredesign.adapters.homefragment.CardViewExploreContentAdapter
-import com.istekno.githubredesign.adapters.homefragment.CardViewMostPopularAdapter
-import com.istekno.githubredesign.databases.BaseAPI
-import com.istekno.githubredesign.models.Content
-import com.istekno.githubredesign.models.DeveloperList
 import com.istekno.githubredesign.databases.MainData
+import com.istekno.githubredesign.helpers.RecyclerViewMode
+import com.istekno.githubredesign.models.Content
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_card_home_explore_challenges.*
+import kotlinx.android.synthetic.main.item_card_home_explore_developer.*
+import kotlinx.android.synthetic.main.item_card_home_explore_studyroom.*
 
-class HomeFragment(private val navigationView : NavigationView, private val actionBar: androidx.appcompat.widget.Toolbar) : Fragment() {
+class HomeFragment(private val navigationView : NavigationView, private val actionBar: Toolbar) : Fragment(), View.OnClickListener {
 
-    private val listMostPopular = ArrayList<DeveloperList>()
-    private val listExploreContent = ArrayList<Content>()
-    private val getAPI = BaseAPI()
+    private lateinit var recyclerViewMode: RecyclerViewMode
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,50 +31,28 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
         actionBar.menu?.findItem(R.id.act_favorite)?.isVisible = true
         actionBar.title = resources.getString(R.string.home)
 
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navigationView.setCheckedItem(R.id.home_nav_drawer)
-        val url ="https://api.github.com/users"
+        recyclerViewMode = RecyclerViewMode()
 
-        showRecycleListExploreContent(view)
+        explore_developer_more.setOnClickListener(this)
+        explore_challenges_more.setOnClickListener(this)
+        explore_studyroom_more.setOnClickListener(this)
+
+        recyclerViewMode.getRecyclerView(this, viewLifecycleOwner, progressBar_home_list, context, rv_most_popular)
+        setActionExploreContent(view.context)
         actionBarMenuListener()
     }
 
-    private fun showActionClickCallbackPopular(developerList: DeveloperList) {
-        val intent = Intent(this.context, DeveloperDetailActivity::class.java)
-        intent.putExtra(DeveloperFragment.INTENT_PARCELABLE, developerList)
-        startActivity(intent)
-    }
-
-    private fun showActionClickCallbackExplore(content: Content) {
-        var fragmentClass = Fragment()
-        var fragmentTAG : String? = null
-
-        when(content.name) {
-            R.string.developer -> {
-                fragmentClass = DeveloperFragment(navigationView, actionBar)
-                fragmentTAG = DeveloperFragment::class.java.simpleName
-            }
-
-            R.string.challenges -> {
-                fragmentClass = ChallengesFragment(navigationView, actionBar)
-                fragmentTAG = ChallengesFragment::class.java.simpleName
-            }
-
-            R.string.study_room -> {
-                fragmentClass = StudyRoomFragment(navigationView, actionBar)
-                fragmentTAG = StudyRoomFragment::class.java.simpleName
-            }
-        }
-
-        val mFragmentManager = fragmentManager
-        mFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.frame_layout, fragmentClass, fragmentTAG)
-            commit()
-        }
+    private fun setActionExploreContent(context: Context) {
+        Glide.with(context).load("https://static.vecteezy.com/system/resources/previews/000/228/437/non_2x/female-developer-vector-illustration.jpg").into(explore_developer_img)
+        Glide.with(context).load("https://img.freepik.com/free-vector/man-woman-business-reward-satisfaction-employee_159757-33.jpg?size=626&ext=jpg").into(explore_challenges_img)
+        Glide.with(context).load("https://img.freepik.com/free-vector/students-studying-textbooks_74855-5294.jpg?size=626&ext=jpg").into(explore_studyroom_img)
     }
 
     private fun actionBarMenuListener() {
@@ -93,29 +70,9 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
         }
     }
 
-    private fun showRecycleListMostPopular(view: View) {
-        listMostPopular.sortBy { it.username }
-        rv_most_popular.apply {
-            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false)
-            adapter = CardViewMostPopularAdapter(listMostPopular, object : CardViewMostPopularAdapter.OnItemClickCallback {
-                override fun onItemClicked(developerList: DeveloperList) {
-                    showActionClickCallbackPopular(developerList)
-                }
-            })
-        }
-    }
+    override fun onClick(view: View) {
+        recyclerViewMode = RecyclerViewMode()
 
-    private fun showRecycleListExploreContent(view: View) {
-        listExploreContent.addAll(MainData.listDataExploreContent)
-        rv_explore_content.apply {
-            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
-
-            val cardAdapter = CardViewExploreContentAdapter(listExploreContent, object : CardViewExploreContentAdapter.OnItemClickCallback {
-                override fun onItemClicked(content: Content) {
-                    showActionClickCallbackExplore(content)
-                }
-            })
-            adapter = cardAdapter
-        }
+        recyclerViewMode.getActionClickCallback(view, navigationView, actionBar, fragmentManager)
     }
 }
