@@ -26,21 +26,9 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_row_developer"
         app:layout_constraintStart_toEndOf="@+id/img_item_row_developer"
-        app:layout_constraintTop_toTopOf="@+id/img_item_row_developer"
-        tools:text="Name" />
-
-    <TextView
-        android:id="@+id/tv_item_row_developer_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/lato_reguler"
-        android:maxLines="2"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_row_developer_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_row_developer_name"
-        tools:text="Description" />
+        app:layout_constraintTop_toTopOf="@+id/img_item_row_developer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

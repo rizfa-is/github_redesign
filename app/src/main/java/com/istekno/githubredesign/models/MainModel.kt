@@ -22,12 +22,6 @@ data class DeveloperList (
 ) : Parcelable
 
 @Parcelize
-data class Content (
-    var name : String = "",
-    var photo : String = ""
-) : Parcelable
-
-@Parcelize
 data class Repository (
     var name : String = "",
     var username: String = "",

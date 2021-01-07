@@ -17,7 +17,6 @@ class ListRepositoryAdapter(private val listRepository: ArrayList<Repository>) :
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val devName : TextView = itemView.findViewById(R.id.tv_item_row_developer_name)
-        private val devLocation : TextView = itemView.findViewById(R.id.tv_item_row_developer_location)
 
         fun bind(repository: Repository) {
             Glide.with(itemView.context)
@@ -26,7 +25,6 @@ class ListRepositoryAdapter(private val listRepository: ArrayList<Repository>) :
                 .into(itemView.img_item_row_developer)
 
             this.devName.text = repository.name
-            this.devLocation.text = repository.username
 
             this.itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected " + repository.name, Toast.LENGTH_SHORT).show() }
         }

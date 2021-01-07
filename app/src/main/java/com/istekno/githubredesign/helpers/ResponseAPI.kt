@@ -11,14 +11,6 @@ class ResponseAPI {
 
     private val mActivity = Activity()
 
-    fun showLoadingHome(state: Boolean) {
-        if (state) {
-            mActivity.progressBar_home_list.visibility = View.VISIBLE
-        } else {
-            mActivity.progressBar_home_list.visibility = View.GONE
-        }
-    }
-
     fun showLoadingDeveloperFragment(progressBarID: View, state: Boolean) {
         if (state) {
             progressBarID.visibility = View.VISIBLE

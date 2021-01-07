@@ -19,7 +19,7 @@ import com.istekno.githubredesign.adapters.developerfragment.CardViewDeveloperAd
 import com.istekno.githubredesign.adapters.developerfragment.GridDeveloperAdapter
 import com.istekno.githubredesign.adapters.developerfragment.ListDeveloperAdapter
 import com.istekno.githubredesign.adapters.homefragment.CardViewMostPopularAdapter
-import com.istekno.githubredesign.models.Content
+import com.istekno.githubredesign.entity.Favorite
 import com.istekno.githubredesign.models.DeveloperDetail
 import com.istekno.githubredesign.viewmodels.BaseViewModel
 import com.istekno.githubredesign.views.activity.DeveloperDetailActivity
@@ -44,6 +44,7 @@ class RecyclerViewMode {
     fun getActionClickCallback(view: View, navigationView: NavigationView, actionBar: Toolbar, fragmentManager: FragmentManager?) {
         showActionClickCallbackExplore(view, navigationView, actionBar, fragmentManager)
     }
+
     private fun homeMostPopularLayout(owner: ViewModelStoreOwner, ownerLC: LifecycleOwner, progressBarID: View, context: Context?, recyclerView: RecyclerView) {
         responseAPI = ResponseAPI()
         searchDeveloperView = SearchDeveloperView()

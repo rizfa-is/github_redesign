@@ -1,8 +1,5 @@
-package com.istekno.githubredesign.databases
+package com.istekno.githubredesign.utilities
 
-import androidx.annotation.StringRes
-import com.istekno.githubredesign.R
-import com.istekno.githubredesign.models.Content
 import com.istekno.githubredesign.models.DeveloperDetail
 
 object MainData {

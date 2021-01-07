@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.models.DeveloperDetail
-import com.istekno.githubredesign.models.DeveloperList
 import kotlinx.android.synthetic.main.item_card_developer.view.*
 
 class CardViewDeveloperAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<CardViewDeveloperAdapter.CardViewViewHolder>() {

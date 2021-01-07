@@ -3,7 +3,7 @@ package com.istekno.githubredesign.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.istekno.githubredesign.databases.BaseAPI
+import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.models.DeveloperDetail
 
 class BaseViewModel: ViewModel() {

@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.istekno.githubredesign.R
-import com.istekno.githubredesign.databases.MainData
 import com.istekno.githubredesign.helpers.RecyclerViewMode
-import com.istekno.githubredesign.models.Content
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_card_home_explore_challenges.*
 import kotlinx.android.synthetic.main.item_card_home_explore_developer.*

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapters.developerdetail.ListFollowersAdapter
-import com.istekno.githubredesign.databases.BaseAPI
+import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.models.Follows
 import kotlinx.android.synthetic.main.fragment_followers.*
 

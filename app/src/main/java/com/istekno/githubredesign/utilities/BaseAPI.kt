@@ -1,4 +1,4 @@
-package com.istekno.githubredesign.databases
+package com.istekno.githubredesign.utilities
 
 import android.content.Context
 import android.util.Log
@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.istekno.githubredesign.models.DeveloperDetail
-import com.istekno.githubredesign.models.DeveloperList
 import com.istekno.githubredesign.models.Follows
 import com.istekno.githubredesign.models.Repository
 import com.loopj.android.http.AsyncHttpClient

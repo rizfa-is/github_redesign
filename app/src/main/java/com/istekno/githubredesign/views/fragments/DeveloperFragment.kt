@@ -19,6 +19,7 @@ open class DeveloperFragment(private val navigationView: NavigationView, private
 
     companion object {
         const val INTENT_PARCELABLE = "OBJECT_INTENT"
+        const val FAV_INTENT_PARCELABLE = "FAV_OBJECT_INTENT"
     }
 
     override fun onCreateView(

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapters.developerdetail.ListFollowingAdapter
-import com.istekno.githubredesign.databases.BaseAPI
+import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.models.Follows
 import kotlinx.android.synthetic.main.fragment_following.*
 
@@ -34,7 +34,7 @@ class FollowingFragment(private val username: String) : Fragment() {
 
     private fun showRecycleList(listFollower: ArrayList<Follows>, view: View) {
         rv_following.apply {
-            layoutManager = LinearLayoutManager(view.context)
+            layoutManager = LinearLayoutManager(context)
             adapter = ListFollowingAdapter(listFollower)
         }
     }
