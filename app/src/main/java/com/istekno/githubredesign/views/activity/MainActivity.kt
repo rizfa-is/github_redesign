@@ -83,9 +83,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(mIntent)
             }
 
-            R.id.aboutUs_nav_drawer2 -> {
-                fragmentProperties(AboutUsFragment(nav_view, topAppBar), AboutUsFragment::class.java.simpleName)
-                nav_view.setCheckedItem(R.id.aboutUs_nav_drawer2)
+            R.id.setting_nav_drawer2 -> {
+                fragmentProperties(SettingFragment(nav_view, topAppBar), SettingFragment::class.java.simpleName)
+                nav_view.setCheckedItem(R.id.setting_nav_drawer2)
             }
         }
         return false

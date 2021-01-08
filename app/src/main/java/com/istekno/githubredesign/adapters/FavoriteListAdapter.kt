@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.istekno.githubredesign.R
@@ -35,13 +36,11 @@ class FavoriteListAdapter: RecyclerView.Adapter<FavoriteListAdapter.FavoriteView
             binding.tvItemRowDeveloperName.text = favorite.username
 
             this.itemView.setOnClickListener {
-                customOnItemClickListener.onItemClickCallback(object : CustomOnItemClickListener.OnItemClickCallback {
-                    override fun onItemClicked(view: View, position: Int) {
-                        val intent = Intent(itemView.context, DeveloperDetailActivity::class.java)
-                        intent.putExtra(DeveloperFragment.FAV_INTENT_PARCELABLE, favorite)
-                        itemView.context.startActivity(intent)
-                    }
-                })
+                Toast.makeText(itemView.context, "Selected ${favorite.username}", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(itemView.context, DeveloperDetailActivity::class.java)
+                intent.putExtra(DeveloperFragment.FAV_INTENT_PARCELABLE, favorite)
+                itemView.context.startActivity(intent)
             }
         }
     }

@@ -33,8 +33,12 @@
     <string name="challenges">Tantangan</string>
     <string name="study_room">Ruang Belajar</string>
     <string name="profile">Profil</string>
-    <string name="about_us">Tentang Kami</string>
+    <string name="setting">Pengaturan</string>
     <string name="language">Bahasa</string>
     <string name="list_developer">Daftar Developer</string>
     <string name="input_username">Masukkan username</string>
+
+    <string name="nothing">Tidak Ada</string>
+    <string name="reminder">Pengingat</string>
+    <string name="key_reminder">pengingat</string>
 </resources>

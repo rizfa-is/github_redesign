@@ -5,6 +5,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="my_profil_desc">\t\t\tHi, saya Rosyid Rosadi seorang Freelancer sejak 2017. Pertama kali kenal dunia programming pada akhir 2018, ketika mengerjakan projek tools untuk Trading Forex berbasis Machine Learning sederhana menggunakan C++. Mengikuti 1 bootcamp Fullstack Web Node.Js dan sekali ikut pelatihan online Fullstack Mobile Development menggunakan framework Flutter.</string>
+
     <!-- Other string resources-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="coming_soon">Coming Soon</string>
@@ -32,8 +33,12 @@
     <string name="challenges">Challenges</string>
     <string name="study_room">Study Room</string>
     <string name="profile">Profile</string>
-    <string name="about_us">About Us</string>
+    <string name="setting">Setting</string>
     <string name="language">Language</string>
     <string name="list_developer">List Developer</string>
     <string name="input_username">Input username</string>
+
+    <string name="nothing">Nothing</string>
+    <string name="reminder">Reminder</string>
+    <string name="key_reminder">reminder</string>
 </resources>
