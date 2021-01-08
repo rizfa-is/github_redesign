@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/nav_menu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/home_nav_drawer"
+            android:title="@string/home"
+            android:icon="@drawable/ic_home"/>
+        <item
+            android:id="@+id/developer_nav_drawer"
+            android:title="@string/developer"
+            android:icon="@drawable/ic_fulname"/>
+        <item
+            android:id="@+id/challenges_nav_drawer"
+            android:title="@string/challenges"
+            android:icon="@drawable/ic_aboutus"/>
+        <item
+            android:id="@+id/studyRoom_nav_drawer"
+            android:title="@string/study_room"
+            android:icon="@drawable/ic_test_feature"/>
+    </group>
+
+    <group android:id="@+id/nav_menu2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/favorit_nav_drawer2"
+            android:title="@string/favorites"
+            android:icon="@drawable/ic_favorite"/>
+        <item
+            android:id="@+id/profil_nav_drawer2"
+            android:title="@string/profile"
+            android:icon="@drawable/ic_fulname"/>
+        <item
+            android:id="@+id/change_language_nav_drawer2"
+            android:title="@string/language"
+            android:icon="@drawable/ic_language"/>
+        <item
+            android:id="@+id/setting_nav_drawer2"
+            android:title="@string/setting"
+            android:icon="@drawable/ic_setting"/>
+    </group>
+</menu>

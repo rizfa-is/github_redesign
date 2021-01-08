@@ -2,9 +2,7 @@ package com.istekno.githubredesign.views.fragments
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.google.android.material.navigation.NavigationView
@@ -15,6 +13,11 @@ class SettingFragment(
     private val navigationView: NavigationView,
     private val actionBar: androidx.appcompat.widget.Toolbar
 ) : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
+    companion object {
+        private const val time = "09:00"
+        private const val message = "Let's explore borderless world!"
+    }
 
     private lateinit var REMINDER: String
     private lateinit var reminderPreference: SwitchPreference
@@ -30,7 +33,6 @@ class SettingFragment(
 
         alarmReceiver = AlarmReceiver()
         init()
-        setSummaries()
     }
 
     override fun onResume() {
@@ -46,11 +48,10 @@ class SettingFragment(
     private fun init() {
         REMINDER = resources.getString(R.string.key_reminder)
         reminderPreference = findPreference<SwitchPreference>(REMINDER) as SwitchPreference
-    }
 
-    private fun setSummaries() {
-        val sh = preferenceManager.sharedPreferences
-        reminderPreference.summary = sh.getBoolean(REMINDER, false).toString()
+        if (reminderPreference.isChecked) {
+            context?.let { alarmReceiver.setRepeatingAlarm(it, time, message) }
+        }
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
@@ -60,7 +61,7 @@ class SettingFragment(
             reminderPreference.summary = reminderPreference.isChecked.toString()
 
             if (reminderPreference.isChecked) {
-                context?.let { alarmReceiver.setRepeatingAlarm(it, "09:00", "Let's explore borderless world!") }
+                context?.let { alarmReceiver.setRepeatingAlarm(it, time, message) }
             } else {
                 context?.let { alarmReceiver.cancelAlarm(it) }
             }

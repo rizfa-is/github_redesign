@@ -18,6 +18,13 @@ import kotlinx.android.synthetic.main.item_card_home_explore_studyroom.*
 
 class HomeFragment(private val navigationView : NavigationView, private val actionBar: Toolbar) : Fragment(), View.OnClickListener {
 
+    companion object {
+        private val listImage = arrayOf(
+            "https://static.vecteezy.com/system/resources/previews/000/228/437/non_2x/female-developer-vector-illustration.jpg",
+            "https://img.freepik.com/free-vector/man-woman-business-reward-satisfaction-employee_159757-33.jpg?size=626&ext=jpg",
+            "https://img.freepik.com/free-vector/students-studying-textbooks_74855-5294.jpg?size=626&ext=jpg")
+    }
+
     private lateinit var recyclerViewMode: RecyclerViewMode
 
     override fun onCreateView(
@@ -47,9 +54,9 @@ class HomeFragment(private val navigationView : NavigationView, private val acti
     }
 
     private fun setActionExploreContent(context: Context) {
-        Glide.with(context).load("https://static.vecteezy.com/system/resources/previews/000/228/437/non_2x/female-developer-vector-illustration.jpg").into(explore_developer_img)
-        Glide.with(context).load("https://img.freepik.com/free-vector/man-woman-business-reward-satisfaction-employee_159757-33.jpg?size=626&ext=jpg").into(explore_challenges_img)
-        Glide.with(context).load("https://img.freepik.com/free-vector/students-studying-textbooks_74855-5294.jpg?size=626&ext=jpg").into(explore_studyroom_img)
+        Glide.with(context).load(listImage[0]).into(explore_developer_img)
+        Glide.with(context).load(listImage[1]).into(explore_challenges_img)
+        Glide.with(context).load(listImage[2]).into(explore_studyroom_img)
     }
 
     private fun actionBarMenuListener() {

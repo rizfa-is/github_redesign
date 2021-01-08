@@ -1,0 +1,29 @@
+<resources>
+    <style name="circleImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="circleImageCard">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="circleTopCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">15%</item>
+        <item name="cornerSizeTopRight">15%</item>
+    </style>
+
+    <style name="circleBottomCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">35%</item>
+        <item name="cornerSizeBottomRight">35%</item>
+    </style>
+
+    <style name="circleImage.">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>

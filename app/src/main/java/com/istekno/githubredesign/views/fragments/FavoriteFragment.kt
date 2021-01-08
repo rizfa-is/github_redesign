@@ -15,7 +15,6 @@ import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapters.FavoriteListAdapter
 import com.istekno.githubredesign.databinding.FragmentFavoriteBinding
 import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.CONTENT_URI
-import com.istekno.githubredesign.db.GithubHelper
 import com.istekno.githubredesign.entity.Favorite
 import com.istekno.githubredesign.helpers.MappingHelper
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +30,6 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
 
     private lateinit var favoriteBinding: FragmentFavoriteBinding
     private lateinit var adapter: FavoriteListAdapter
-    private lateinit var githubHelper: GithubHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +52,6 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
         favoriteBinding.rvFavorite.setHasFixedSize(true)
         adapter = FavoriteListAdapter()
         favoriteBinding.rvFavorite.adapter = adapter
-
-        githubHelper = GithubHelper.getInstance(view.context)
-        githubHelper.open()
 
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
@@ -88,8 +83,8 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
                 MappingHelper.mapCursorToArrayList(cursor)
             }
 
-            favoriteBinding.progressBarFavorite.visibility = View.GONE
             val github = deferredGithub.await()
+            favoriteBinding.progressBarFavorite.visibility = View.GONE
 
             if (github.size > 0) {
                 adapter.listFavorite = github
@@ -107,10 +102,5 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
 
     private fun showSnackBarMessage(msg: String) {
         Snackbar.make(favoriteBinding.rvFavorite, msg, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        githubHelper.close()
     }
 }

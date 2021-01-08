@@ -11,12 +11,11 @@ import com.istekno.githubredesign.adapters.developerdetail.DeveloperDetailViewPa
 import com.istekno.githubredesign.databinding.ActivityDeveloperDetailBinding
 import com.istekno.githubredesign.db.DatabaseContract
 import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.CONTENT_URI
-import com.istekno.githubredesign.db.GithubHelper
 import com.istekno.githubredesign.entity.Favorite
 import com.istekno.githubredesign.helpers.MappingHelper
-import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.helpers.ResponseAPI
 import com.istekno.githubredesign.models.DeveloperDetail
+import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.views.fragments.DeveloperFragment
 import kotlinx.android.synthetic.main.activity_developer_detail.*
 
@@ -25,7 +24,6 @@ class DeveloperDetailActivity : AppCompatActivity() {
     private lateinit var getAPI: BaseAPI
     private lateinit var responseAPI: ResponseAPI
     private lateinit var binding: ActivityDeveloperDetailBinding
-    private lateinit var githubHelper: GithubHelper
     private lateinit var favorite: Favorite
     private lateinit var uriWithId: Uri
 
@@ -38,9 +36,6 @@ class DeveloperDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         favorite = Favorite()
-        githubHelper = GithubHelper(applicationContext)
-        githubHelper.open()
-
         loadGithubAsync()
 
         initInheritance()
@@ -141,7 +136,7 @@ class DeveloperDetailActivity : AppCompatActivity() {
     }
 
     private fun loadGithubAsync() {
-        val cursor = githubHelper.queryAll()
+        val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
         val list = MappingHelper.mapCursorToArrayList(cursor)
 
         if (list.size > 0) {
@@ -149,10 +144,5 @@ class DeveloperDetailActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this@DeveloperDetailActivity, "There's no data!", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        githubHelper.close()
     }
 }
