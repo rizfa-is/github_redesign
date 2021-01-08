@@ -3,7 +3,7 @@ package com.istekno.githubredesign.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.istekno.githubredesign.db.DatabaseContract.FavoriteColums.Companion.TABLE_NAME
+import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.TABLE_NAME
 
 internal class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -13,9 +13,9 @@ internal class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATAB
         private const val DATABASE_VERSION = 1
 
         private const val SQL_CREATE_TABLE_FAVORITE = "CREATE TABLE $TABLE_NAME" +
-                "(${DatabaseContract.FavoriteColums.ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "${DatabaseContract.FavoriteColums.USERNAME} TEXT NOT NULL," +
-                "${DatabaseContract.FavoriteColums.AVATAR} TEXT NOT NULL)"
+                "(${DatabaseContract.FavoriteColumn.ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "${DatabaseContract.FavoriteColumn.USERNAME} TEXT NOT NULL," +
+                "${DatabaseContract.FavoriteColumn.AVATAR} TEXT NOT NULL)"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

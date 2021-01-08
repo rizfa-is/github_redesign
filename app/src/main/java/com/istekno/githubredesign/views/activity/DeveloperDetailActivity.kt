@@ -1,8 +1,8 @@
 package com.istekno.githubredesign.views.activity
 
 import android.content.ContentValues
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -10,6 +10,7 @@ import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapters.developerdetail.DeveloperDetailViewPagerAdapter
 import com.istekno.githubredesign.databinding.ActivityDeveloperDetailBinding
 import com.istekno.githubredesign.db.DatabaseContract
+import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.CONTENT_URI
 import com.istekno.githubredesign.db.GithubHelper
 import com.istekno.githubredesign.entity.Favorite
 import com.istekno.githubredesign.helpers.MappingHelper
@@ -18,10 +19,6 @@ import com.istekno.githubredesign.helpers.ResponseAPI
 import com.istekno.githubredesign.models.DeveloperDetail
 import com.istekno.githubredesign.views.fragments.DeveloperFragment
 import kotlinx.android.synthetic.main.activity_developer_detail.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class DeveloperDetailActivity : AppCompatActivity() {
 
@@ -30,8 +27,9 @@ class DeveloperDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDeveloperDetailBinding
     private lateinit var githubHelper: GithubHelper
     private lateinit var favorite: Favorite
-    private var listFav = ArrayList<Favorite>()
+    private lateinit var uriWithId: Uri
 
+    private var listFav = ArrayList<Favorite>()
     private val listDeveloperDetail = ArrayList<DeveloperDetail>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +37,7 @@ class DeveloperDetailActivity : AppCompatActivity() {
         binding = ActivityDeveloperDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        favorite = Favorite()
         githubHelper = GithubHelper(applicationContext)
         githubHelper.open()
 
@@ -55,7 +54,6 @@ class DeveloperDetailActivity : AppCompatActivity() {
 
     private fun developerDetailViewBinding() {
         val developer = intent.getParcelableExtra<DeveloperDetail>(DeveloperFragment.INTENT_PARCELABLE)
-        favorite = Favorite()
         var username = ""
         var avatar = ""
 
@@ -66,6 +64,7 @@ class DeveloperDetailActivity : AppCompatActivity() {
             favorite = intent.getParcelableExtra(DeveloperFragment.FAV_INTENT_PARCELABLE)!!
             username = favorite.username.toString()
             avatar = favorite.avatar.toString()
+            uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + favorite.id)
         }
 
         Glide.with(this)
@@ -120,32 +119,23 @@ class DeveloperDetailActivity : AppCompatActivity() {
 
         developer_detail_btn_favorite.setOnClickListener {
             val values = ContentValues()
-            values.put(DatabaseContract.FavoriteColums.USERNAME, username)
-            values.put(DatabaseContract.FavoriteColums.AVATAR, avatar)
+            values.put(DatabaseContract.FavoriteColumn.USERNAME, username)
+            values.put(DatabaseContract.FavoriteColumn.AVATAR, avatar)
 
             if (!it.isSelected) {
-                val resultAdd = githubHelper.insert(values)
+                contentResolver.insert(CONTENT_URI, values)
 
-                if (resultAdd > 0) {
-                    Toast.makeText(this, "Success add to favorite!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Success add to favorite!", Toast.LENGTH_SHORT).show()
 
-                    developer_detail_btn_favorite.setImageResource(R.drawable.ic_favorite_checked)
-                    developer_detail_btn_favorite.isSelected = true
-                } else {
-                    Toast.makeText(this, "Fail add to favorite!", Toast.LENGTH_SHORT).show()
-                }
-
+                developer_detail_btn_favorite.setImageResource(R.drawable.ic_favorite_checked)
+                developer_detail_btn_favorite.isSelected = true
             } else {
-                val resultDelete = githubHelper.deleteById(favorite.id.toString()).toLong()
+                contentResolver.delete(uriWithId, null, null)
 
-                if (resultDelete > 0) {
-                    Toast.makeText(this, "Success remove from favorite!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Success remove from favorite!", Toast.LENGTH_SHORT).show()
 
-                    developer_detail_btn_favorite.setImageResource(R.drawable.ic_favorite_unchecked)
-                    developer_detail_btn_favorite.isSelected = false
-                } else {
-                    Toast.makeText(this, "Fail remove from favorite!", Toast.LENGTH_SHORT).show()
-                }
+                developer_detail_btn_favorite.setImageResource(R.drawable.ic_favorite_unchecked)
+                developer_detail_btn_favorite.isSelected = false
             }
         }
     }

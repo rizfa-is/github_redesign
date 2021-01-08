@@ -20,22 +20,38 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        const val EXTRA_NOTIFY = "extra_notify"
+    }
+
     private lateinit var mToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
         setContentView(R.layout.activity_main)
-
         connectionCheck(this)
 
-        val mFragmentManager = supportFragmentManager
-        val mFragment = HomeFragment(nav_view, topAppBar)
-        val fragment = mFragmentManager.findFragmentByTag(mFragment::class.java.simpleName)
-        if (fragment !is HomeFragment) {
-            mFragmentManager
-                .beginTransaction()
-                .add(R.id.frame_layout, mFragment, HomeFragment::class.java.simpleName)
-                .commit()
+        val intent = intent.getIntExtra(EXTRA_NOTIFY, -1)
+        if (intent == 0) {
+            val mFragmentManager = supportFragmentManager
+            val mFragment = DeveloperFragment(nav_view, topAppBar)
+            val fragment = mFragmentManager.findFragmentByTag(mFragment::class.java.simpleName)
+            if (fragment !is DeveloperFragment) {
+                mFragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_layout, mFragment, DeveloperFragment::class.java.simpleName)
+                    .commit()
+            }
+        } else {
+            val mFragmentManager = supportFragmentManager
+            val mFragment = HomeFragment(nav_view, topAppBar)
+            val fragment = mFragmentManager.findFragmentByTag(mFragment::class.java.simpleName)
+            if (fragment !is HomeFragment) {
+                mFragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_layout, mFragment, HomeFragment::class.java.simpleName)
+                    .commit()
+            }
         }
 
         supportActionBar?.setHomeButtonEnabled(true)

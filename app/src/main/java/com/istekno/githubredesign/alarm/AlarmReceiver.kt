@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.istekno.githubredesign.R
+import com.istekno.githubredesign.views.activity.MainActivity
+import com.istekno.githubredesign.views.activity.MainActivity.Companion.EXTRA_NOTIFY
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,9 +48,14 @@ class AlarmReceiver : BroadcastReceiver() {
         val CHANNEL_ID = "Channel_1"
         val CHANNEL_NAME = "AlarmManager channel"
 
+        val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra(EXTRA_NOTIFY, 0)
+        val pendingIntent = PendingIntent.getActivities(context, 0, arrayOf(intent), 0)
+
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_reminder)
             .setContentTitle(title)
             .setContentText(message)

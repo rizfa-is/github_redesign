@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <permission android:name="com.istekno.githubredesign.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.istekno.githubredesign.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:icon="@drawable/ic_shortcut_github"
@@ -14,6 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name=".provider.GithubProvider"
+            android:authorities="com.istekno.githubredesign"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.istekno.githubredesign.READ_DATABASE"
+            android:writePermission="com.istekno.githubredesign.WRITE_DATABASE"/>
+
         <receiver
             android:name=".alarm.AlarmReceiver"
             android:enabled="true"
@@ -34,6 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

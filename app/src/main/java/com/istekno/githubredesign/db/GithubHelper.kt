@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.istekno.githubredesign.db.DatabaseContract.FavoriteColums.Companion.ID
-import com.istekno.githubredesign.db.DatabaseContract.FavoriteColums.Companion.TABLE_NAME
+import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.ID
+import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.TABLE_NAME
 import java.sql.SQLException
 
 class GithubHelper(context: Context) {

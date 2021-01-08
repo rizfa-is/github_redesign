@@ -1,6 +1,9 @@
 package com.istekno.githubredesign.views.fragments
 
+import android.database.ContentObserver
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.istekno.githubredesign.R
 import com.istekno.githubredesign.adapters.FavoriteListAdapter
 import com.istekno.githubredesign.databinding.FragmentFavoriteBinding
+import com.istekno.githubredesign.db.DatabaseContract.FavoriteColumn.Companion.CONTENT_URI
 import com.istekno.githubredesign.db.GithubHelper
 import com.istekno.githubredesign.entity.Favorite
 import com.istekno.githubredesign.helpers.MappingHelper
@@ -54,6 +58,18 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
         githubHelper = GithubHelper.getInstance(view.context)
         githubHelper.open()
 
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(self: Boolean) {
+                loadGithubAsync()
+            }
+        }
+
+        activity?.contentResolver?.registerContentObserver(CONTENT_URI, true, myObserver)
+
         if (savedInstanceState == null) {
             loadGithubAsync()
         } else {
@@ -68,7 +84,7 @@ class FavoriteFragment(private val navigationView : NavigationView, private val 
         GlobalScope.launch(Dispatchers.Main) {
             favoriteBinding.progressBarFavorite.visibility = View.VISIBLE
             val deferredGithub = async(Dispatchers.IO) {
-                val cursor = githubHelper.queryAll()
+                val cursor = activity?.contentResolver?.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
 
