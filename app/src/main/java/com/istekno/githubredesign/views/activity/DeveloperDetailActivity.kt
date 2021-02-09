@@ -55,12 +55,12 @@ class DeveloperDetailActivity : AppCompatActivity() {
         if (developer != null) {
             username = developer.username
             avatar = developer.avatar
-        } else {
-            favorite = intent.getParcelableExtra(DeveloperFragment.FAV_INTENT_PARCELABLE)!!
-            username = favorite.username.toString()
-            avatar = favorite.avatar.toString()
-            uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + favorite.id)
         }
+
+        favorite = intent.getParcelableExtra(DeveloperFragment.FAV_INTENT_PARCELABLE)!!
+        username = favorite.username.toString()
+        avatar = favorite.avatar.toString()
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + favorite.id)
 
         Glide.with(this)
             .load(avatar)

@@ -3,14 +3,14 @@ package com.istekno.githubredesign.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.istekno.githubredesign.utilities.BaseAPI
 import com.istekno.githubredesign.models.DeveloperDetail
+import com.istekno.githubredesign.utilities.BaseAPI
 
 class BaseViewModel: ViewModel() {
 
     private lateinit var getBaseAPI: BaseAPI
 
-    val listDeveloper = MutableLiveData<ArrayList<DeveloperDetail>>()
+    private val listDeveloper = MutableLiveData<ArrayList<DeveloperDetail>>()
 
     fun setListDeveloper(word: String?, empty: Boolean, isMaxActive: Boolean) {
         val url = "https://api.github.com/search/users?q=\"${word}\""
